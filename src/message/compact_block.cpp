@@ -22,6 +22,7 @@
 #include <bitcoin/bitcoin/math/limits.hpp>
 #include <bitcoin/bitcoin/message/messages.hpp>
 #include <bitcoin/bitcoin/message/version.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 #include <bitcoin/bitcoin/utility/container_sink.hpp>
 #include <bitcoin/bitcoin/utility/container_source.hpp>
 #include <bitcoin/bitcoin/utility/istream_reader.hpp>
@@ -35,31 +36,31 @@ const uint32_t compact_block::version_minimum = version::level::bip152;
 const uint32_t compact_block::version_maximum = version::level::bip152;
 
 compact_block compact_block::factory(uint32_t version,
-    const data_chunk& data)
+    const data_chunk& data, const settings& settings)
 {
-    compact_block instance;
-    instance.from_data(version, data);
+    compact_block instance(settings);
+    instance.from_data(version, data, settings);
     return instance;
 }
 
 compact_block compact_block::factory(uint32_t version,
-    std::istream& stream)
+    std::istream& stream, const settings& settings)
 {
-    compact_block instance;
-    instance.from_data(version, stream);
+    compact_block instance(settings);
+    instance.from_data(version, stream, settings);
     return instance;
 }
 
 compact_block compact_block::factory(uint32_t version,
-    reader& source)
+    reader& source, const settings& settings)
 {
-    compact_block instance;
-    instance.from_data(version, source);
+    compact_block instance(settings);
+    instance.from_data(version, source, settings);
     return instance;
 }
 
-compact_block::compact_block()
-  : header_(), nonce_(0), short_ids_(), transactions_()
+compact_block::compact_block(const settings& settings)
+  : header_(settings), nonce_(0), short_ids_(), transactions_()
 {
 }
 
@@ -99,9 +100,9 @@ bool compact_block::is_valid() const
     return header_.is_valid() && !short_ids_.empty() && !transactions_.empty();
 }
 
-void compact_block::reset()
+void compact_block::reset(const settings& settings)
 {
-    header_ = chain::header{};
+    header_ = chain::header(settings);
     nonce_ = 0;
     short_ids_.clear();
     short_ids_.shrink_to_fit();
@@ -109,21 +110,24 @@ void compact_block::reset()
     transactions_.shrink_to_fit();
 }
 
-bool compact_block::from_data(uint32_t version, const data_chunk& data)
+bool compact_block::from_data(uint32_t version, const data_chunk& data,
+    const settings& settings)
 {
     data_source istream(data);
-    return from_data(version, istream);
+    return from_data(version, istream, settings);
 }
 
-bool compact_block::from_data(uint32_t version, std::istream& stream)
+bool compact_block::from_data(uint32_t version, std::istream& stream,
+    const settings& settings)
 {
     istream_reader source(stream);
-    return from_data(version, source);
+    return from_data(version, source, settings);
 }
 
-bool compact_block::from_data(uint32_t version, reader& source)
+bool compact_block::from_data(uint32_t version, reader& source,
+    const settings& settings)
 {
-    reset();
+    reset(settings);
 
     if (!header_.from_data(source))
         return false;
@@ -158,7 +162,7 @@ bool compact_block::from_data(uint32_t version, reader& source)
         source.invalidate();
 
     if (!source)
-        reset();
+        reset(settings);
 
     return source;
 }
@@ -199,9 +203,9 @@ void compact_block::to_data(uint32_t version, writer& sink) const
 size_t compact_block::serialized_size(uint32_t version) const
 {
     auto size = chain::header::satoshi_fixed_size() +
-        message::variable_uint_size(short_ids_.size()) +
+        variable_uint_size(short_ids_.size()) +
         (short_ids_.size() * 6u) +
-        message::variable_uint_size(transactions_.size()) + 8u;
+        variable_uint_size(transactions_.size()) + 8u;
 
     for (const auto& tx: transactions_)
         size += tx.serialized_size(version);

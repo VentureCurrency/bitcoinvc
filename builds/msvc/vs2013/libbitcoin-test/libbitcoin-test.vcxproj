@@ -92,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\test\config\authority.cpp" />
     <ClCompile Include="..\..\..\..\test\config\base58.cpp" />
+    <ClCompile Include="..\..\..\..\test\config\block.cpp">
+      <ObjectFileName>$(IntDir)test_config_block.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\test\config\checkpoint.cpp" />
     <ClCompile Include="..\..\..\..\test\config\endpoint.cpp" />
     <ClCompile Include="..\..\..\..\test\config\hash256.cpp" />
@@ -111,6 +114,7 @@
     <ClCompile Include="..\..\..\..\test\math\elliptic_curve.cpp" />
     <ClCompile Include="..\..\..\..\test\math\hash.cpp" />
     <ClCompile Include="..\..\..\..\test\math\limits.cpp" />
+    <ClCompile Include="..\..\..\..\test\math\ring_signature.cpp" />
     <ClCompile Include="..\..\..\..\test\math\stealth.cpp" />
     <ClCompile Include="..\..\..\..\test\math\uint256.cpp" />
     <ClCompile Include="..\..\..\..\test\message\address.cpp" />
@@ -153,6 +157,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\test\message\verack.cpp" />
     <ClCompile Include="..\..\..\..\test\message\version.cpp" />
+    <ClCompile Include="..\..\..\..\test\settings.cpp" />
     <ClCompile Include="..\..\..\..\test\unicode\unicode.cpp" />
     <ClCompile Include="..\..\..\..\test\unicode\unicode_istream.cpp" />
     <ClCompile Include="..\..\..\..\test\unicode\unicode_ostream.cpp" />
@@ -161,7 +166,8 @@
     <ClCompile Include="..\..\..\..\test\utility\data.cpp" />
     <ClCompile Include="..\..\..\..\test\utility\endian.cpp" />
     <ClCompile Include="..\..\..\..\test\utility\png.cpp" />
-    <ClCompile Include="..\..\..\..\test\utility\random.cpp" />
+    <ClCompile Include="..\..\..\..\test\utility\property_tree.cpp" />
+    <ClCompile Include="..\..\..\..\test\utility\pseudo_random.cpp" />
     <ClCompile Include="..\..\..\..\test\utility\serializer.cpp" />
     <ClCompile Include="..\..\..\..\test\utility\stream.cpp" />
     <ClCompile Include="..\..\..\..\test\utility\thread.cpp" />

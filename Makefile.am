@@ -32,11 +32,12 @@ doc_DATA = \
 # src/libbitcoin.la => ${libdir}
 #------------------------------------------------------------------------------
 lib_LTLIBRARIES = src/libbitcoin.la
-src_libbitcoin_la_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_CPPFLAGS} ${pthread_CPPFLAGS} ${icu_i18n_CPPFLAGS} ${png_CPPFLAGS} ${qrencode_CPPFLAGS} ${secp256k1_CPPFLAGS}
+src_libbitcoin_la_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
 src_libbitcoin_la_LDFLAGS = ${boost_LDFLAGS}
 src_libbitcoin_la_LIBADD = ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
 src_libbitcoin_la_SOURCES = \
     src/error.cpp \
+    src/settings.cpp \
     src/chain/block.cpp \
     src/chain/chain_state.cpp \
     src/chain/compact.cpp \
@@ -57,6 +58,7 @@ src_libbitcoin_la_SOURCES = \
     src/config/base2.cpp \
     src/config/base58.cpp \
     src/config/base64.cpp \
+    src/config/block.cpp \
     src/config/checkpoint.cpp \
     src/config/directory.cpp \
     src/config/endpoint.cpp \
@@ -93,6 +95,7 @@ src_libbitcoin_la_SOURCES = \
     src/math/crypto.cpp \
     src/math/elliptic_curve.cpp \
     src/math/hash.cpp \
+    src/math/ring_signature.cpp \
     src/math/secp256k1_initializer.cpp \
     src/math/secp256k1_initializer.hpp \
     src/math/stealth.cpp \
@@ -173,7 +176,7 @@ src_libbitcoin_la_SOURCES = \
     src/utility/png.cpp \
     src/utility/prioritized_mutex.cpp \
     src/utility/property_tree.cpp \
-    src/utility/random.cpp \
+    src/utility/pseudo_random.cpp \
     src/utility/scope_lock.cpp \
     src/utility/sequencer.cpp \
     src/utility/sequential_lock.cpp \
@@ -220,7 +223,7 @@ src_libbitcoin_la_SOURCES = \
 if WITH_EXAMPLES
 
 noinst_PROGRAMS = examples/libbitcoin-examples
-examples_libbitcoin_examples_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_CPPFLAGS} ${pthread_CPPFLAGS} ${icu_i18n_CPPFLAGS} ${png_CPPFLAGS} ${qrencode_CPPFLAGS} ${secp256k1_CPPFLAGS}
+examples_libbitcoin_examples_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
 examples_libbitcoin_examples_LDFLAGS = ${boost_LDFLAGS}
 examples_libbitcoin_examples_LDADD = src/libbitcoin.la ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
 examples_libbitcoin_examples_SOURCES = \
@@ -235,11 +238,12 @@ if WITH_TESTS
 TESTS = libbitcoin-test_runner.sh
 
 check_PROGRAMS = test/libbitcoin-test
-test_libbitcoin_test_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_CPPFLAGS} ${pthread_CPPFLAGS} ${icu_i18n_CPPFLAGS} ${png_CPPFLAGS} ${qrencode_CPPFLAGS} ${secp256k1_CPPFLAGS}
+test_libbitcoin_test_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
 test_libbitcoin_test_LDFLAGS = ${boost_LDFLAGS}
 test_libbitcoin_test_LDADD = src/libbitcoin.la ${boost_unit_test_framework_LIBS} ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
 test_libbitcoin_test_SOURCES = \
     test/main.cpp \
+    test/settings.cpp \
     test/chain/block.cpp \
     test/chain/compact.cpp \
     test/chain/header.cpp \
@@ -257,6 +261,7 @@ test_libbitcoin_test_SOURCES = \
     test/chain/transaction.cpp \
     test/config/authority.cpp \
     test/config/base58.cpp \
+    test/config/block.cpp \
     test/config/checkpoint.cpp \
     test/config/endpoint.cpp \
     test/config/hash256.cpp \
@@ -277,6 +282,7 @@ test_libbitcoin_test_SOURCES = \
     test/math/hash.cpp \
     test/math/hash.hpp \
     test/math/limits.cpp \
+    test/math/ring_signature.cpp \
     test/math/stealth.cpp \
     test/math/uint256.cpp \
     test/message/address.cpp \
@@ -321,7 +327,8 @@ test_libbitcoin_test_SOURCES = \
     test/utility/data.cpp \
     test/utility/endian.cpp \
     test/utility/png.cpp \
-    test/utility/random.cpp \
+    test/utility/property_tree.cpp \
+    test/utility/pseudo_random.cpp \
     test/utility/serializer.cpp \
     test/utility/stream.cpp \
     test/utility/thread.cpp \
@@ -360,6 +367,7 @@ include_bitcoin_bitcoin_HEADERS = \
     include/bitcoin/bitcoin/define.hpp \
     include/bitcoin/bitcoin/error.hpp \
     include/bitcoin/bitcoin/handlers.hpp \
+    include/bitcoin/bitcoin/settings.hpp \
     include/bitcoin/bitcoin/version.hpp
 
 include_bitcoin_bitcoin_chaindir = ${includedir}/bitcoin/bitcoin/chain
@@ -388,6 +396,7 @@ include_bitcoin_bitcoin_config_HEADERS = \
     include/bitcoin/bitcoin/config/base2.hpp \
     include/bitcoin/bitcoin/config/base58.hpp \
     include/bitcoin/bitcoin/config/base64.hpp \
+    include/bitcoin/bitcoin/config/block.hpp \
     include/bitcoin/bitcoin/config/checkpoint.hpp \
     include/bitcoin/bitcoin/config/directory.hpp \
     include/bitcoin/bitcoin/config/endpoint.hpp \
@@ -498,6 +507,7 @@ include_bitcoin_bitcoin_math_HEADERS = \
     include/bitcoin/bitcoin/math/elliptic_curve.hpp \
     include/bitcoin/bitcoin/math/hash.hpp \
     include/bitcoin/bitcoin/math/limits.hpp \
+    include/bitcoin/bitcoin/math/ring_signature.hpp \
     include/bitcoin/bitcoin/math/stealth.hpp \
     include/bitcoin/bitcoin/math/uint256.hpp
 
@@ -580,7 +590,7 @@ include_bitcoin_bitcoin_utility_HEADERS = \
     include/bitcoin/bitcoin/utility/png.hpp \
     include/bitcoin/bitcoin/utility/prioritized_mutex.hpp \
     include/bitcoin/bitcoin/utility/property_tree.hpp \
-    include/bitcoin/bitcoin/utility/random.hpp \
+    include/bitcoin/bitcoin/utility/pseudo_random.hpp \
     include/bitcoin/bitcoin/utility/reader.hpp \
     include/bitcoin/bitcoin/utility/resubscriber.hpp \
     include/bitcoin/bitcoin/utility/scope_lock.hpp \

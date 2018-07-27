@@ -54,6 +54,12 @@ BOOST_AUTO_TEST_CASE(block__locator_size__zero_backoff__returns_top_plus_one)
     BOOST_REQUIRE_EQUAL(chain::block::locator_size(top), top + 1);
 }
 
+BOOST_AUTO_TEST_CASE(block__locator_size__zero_backoff__returns_top_plus_one_regression_check)
+{
+    const auto top = 11u;
+    BOOST_REQUIRE_EQUAL(chain::block::locator_size(top), top + 1);
+}
+
 BOOST_AUTO_TEST_CASE(block__locator_size__positive_backoff__returns_log_plus_eleven)
 {
     const auto top = 138u;
@@ -85,7 +91,7 @@ BOOST_AUTO_TEST_CASE(block__locator_heights__positive_backoff__returns_top_plus_
 
 BOOST_AUTO_TEST_CASE(block__constructor_1__always__invalid)
 {
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(!instance.is_valid());
 }
 
@@ -96,7 +102,8 @@ BOOST_AUTO_TEST_CASE(block__constructor_2__always__equals_params)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -118,7 +125,8 @@ BOOST_AUTO_TEST_CASE(block__constructor_3__always__equals_params)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -145,7 +153,8 @@ BOOST_AUTO_TEST_CASE(block__constructor_4__always__equals_params)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -169,7 +178,8 @@ BOOST_AUTO_TEST_CASE(block__constructor_5__always__equals_params)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -189,19 +199,19 @@ BOOST_AUTO_TEST_CASE(block__constructor_5__always__equals_params)
 
 BOOST_AUTO_TEST_CASE(block__hash__always__returns_header_hash)
 {
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(instance.header().hash() == instance.hash());
 }
 
 BOOST_AUTO_TEST_CASE(block__is_valid_merkle_root__uninitialized__returns_true)
 {
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(instance.is_valid_merkle_root());
 }
 
 BOOST_AUTO_TEST_CASE(block__is_valid_merkle_root__non_empty_tx_invalid_block__returns_false)
 {
-    chain::block instance;
+    chain::block instance(settings{});
     instance.set_transactions(chain::transaction::list{ chain::transaction{} });
     BOOST_REQUIRE(!instance.is_valid_merkle_root());
 }
@@ -232,7 +242,7 @@ BOOST_AUTO_TEST_CASE(block__is_valid_merkle_root__valid__returns_true)
         "f5349388ac00743ba40b0000001976a914eb675c349c474bec8dea2d79d12cff6f330"
         "ab48788ac00000000"));
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(instance.from_data(raw_block));
     BOOST_REQUIRE(instance.is_valid_merkle_root());
 }
@@ -242,7 +252,7 @@ BOOST_AUTO_TEST_SUITE(block_serialization_tests)
 BOOST_AUTO_TEST_CASE(block__from_data__insufficient_bytes__failure)
 {
     data_chunk data(10);
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(!instance.from_data(data));
     BOOST_REQUIRE(!instance.is_valid());
 }
@@ -256,14 +266,14 @@ BOOST_AUTO_TEST_CASE(block__from_data__insufficient_transaction_bytes__failure)
         "00000000000000000000000000000000000000000000ffffffff07049d8e2f1b"
         "0114ffffffff0100f2052a0100000043410437b36a7221bc977dce712728a954"));
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(!instance.from_data(data));
     BOOST_REQUIRE(!instance.is_valid());
 }
 
 BOOST_AUTO_TEST_CASE(block__genesis__mainnet__valid_structure)
 {
-    const auto genesis = bc::chain::block::genesis_mainnet();
+    const auto genesis = settings(bc::config::settings::mainnet).genesis_block;
     BOOST_REQUIRE(genesis.is_valid());
     BOOST_REQUIRE_EQUAL(genesis.transactions().size(), 1u);
     BOOST_REQUIRE(genesis.header().merkle() == genesis.generate_merkle_root());
@@ -271,7 +281,7 @@ BOOST_AUTO_TEST_CASE(block__genesis__mainnet__valid_structure)
 
 BOOST_AUTO_TEST_CASE(block__genesis__testnet__valid_structure)
 {
-    const auto genesis = bc::chain::block::genesis_testnet();
+    const auto genesis = settings(bc::config::settings::testnet).genesis_block;
     BOOST_REQUIRE(genesis.is_valid());
     BOOST_REQUIRE_EQUAL(genesis.transactions().size(), 1u);
     BOOST_REQUIRE(genesis.header().merkle() == genesis.generate_merkle_root());
@@ -279,7 +289,7 @@ BOOST_AUTO_TEST_CASE(block__genesis__testnet__valid_structure)
 
 BOOST_AUTO_TEST_CASE(block__genesis__regtest__valid_structure)
 {
-    const auto genesis = bc::chain::block::genesis_regtest();
+    const auto genesis = settings(bc::config::settings::regtest).genesis_block;
     BOOST_REQUIRE(genesis.is_valid());
     BOOST_REQUIRE_EQUAL(genesis.transactions().size(), 1u);
     BOOST_REQUIRE(genesis.header().merkle() == genesis.generate_merkle_root());
@@ -288,7 +298,7 @@ BOOST_AUTO_TEST_CASE(block__genesis__regtest__valid_structure)
 
 BOOST_AUTO_TEST_CASE(block__factory_1__genesis_mainnet__success)
 {
-    const auto genesis = bc::chain::block::genesis_mainnet();
+    const auto genesis = settings(bc::config::settings::mainnet).genesis_block;
     BOOST_REQUIRE_EQUAL(genesis.serialized_size(), 285u);
     BOOST_REQUIRE_EQUAL(genesis.header().serialized_size(), 80u);
 
@@ -297,7 +307,8 @@ BOOST_AUTO_TEST_CASE(block__factory_1__genesis_mainnet__success)
     BOOST_REQUIRE_EQUAL(raw_block.size(), 285u);
 
     // Reload genesis block.
-    const auto block = chain::block::factory(raw_block);
+    const auto block = chain::block::factory(raw_block, settings(
+        bc::config::settings::mainnet));
 
     BOOST_REQUIRE(block.is_valid());
     BOOST_REQUIRE(genesis.header() == block.header());
@@ -308,7 +319,7 @@ BOOST_AUTO_TEST_CASE(block__factory_1__genesis_mainnet__success)
 
 BOOST_AUTO_TEST_CASE(block__factory_2__genesis_mainnet__success)
 {
-    const auto genesis = bc::chain::block::genesis_mainnet();
+    const auto genesis = settings(bc::config::settings::mainnet).genesis_block;
     BOOST_REQUIRE_EQUAL(genesis.serialized_size(), 285u);
     BOOST_REQUIRE_EQUAL(genesis.header().serialized_size(), 80u);
 
@@ -318,7 +329,8 @@ BOOST_AUTO_TEST_CASE(block__factory_2__genesis_mainnet__success)
 
     // Reload genesis block.
     data_source stream(raw_block);
-    const auto block = chain::block::factory(stream);
+    const auto block = chain::block::factory(stream, settings(
+        bc::config::settings::mainnet));
 
     BOOST_REQUIRE(block.is_valid());
     BOOST_REQUIRE(genesis.header() == block.header());
@@ -329,7 +341,7 @@ BOOST_AUTO_TEST_CASE(block__factory_2__genesis_mainnet__success)
 
 BOOST_AUTO_TEST_CASE(block__factory_3__genesis_mainnet__success)
 {
-    const auto genesis = bc::chain::block::genesis_mainnet();
+    const auto genesis = settings(bc::config::settings::mainnet).genesis_block;
     BOOST_REQUIRE_EQUAL(genesis.serialized_size(), 285u);
     BOOST_REQUIRE_EQUAL(genesis.header().serialized_size(), 80u);
 
@@ -340,7 +352,8 @@ BOOST_AUTO_TEST_CASE(block__factory_3__genesis_mainnet__success)
     // Reload genesis block.
     data_source stream(raw_block);
     istream_reader reader(stream);
-    const auto block = chain::block::factory(reader);
+    const auto block = chain::block::factory(reader, settings(
+        bc::config::settings::mainnet));
 
     BOOST_REQUIRE(block.is_valid());
     BOOST_REQUIRE(genesis.header() == block.header());
@@ -355,7 +368,7 @@ BOOST_AUTO_TEST_SUITE(block_generate_merkle_root_tests)
 
 BOOST_AUTO_TEST_CASE(block__generate_merkle_root__block_with_zero_transactions__matches_null_hash)
 {
-    chain::block empty;
+    chain::block empty(settings{});
     BOOST_REQUIRE(empty.generate_merkle_root() == null_hash);
 }
 
@@ -387,7 +400,7 @@ BOOST_AUTO_TEST_CASE(block__generate_merkle_root__block_with_multiple_transactio
         "14b9a2c9700ff9519516b21af338d28d53ddf5349388ac00743ba40b00000019"
         "76a914eb675c349c474bec8dea2d79d12cff6f330ab48788ac00000000"));
 
-    chain::block block100k;
+    chain::block block100k(settings{});
     BOOST_REQUIRE(block100k.from_data(raw));
     BOOST_REQUIRE(block100k.is_valid());
 
@@ -407,7 +420,8 @@ BOOST_AUTO_TEST_CASE(block__header_accessor__always__returns_initialized_value)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -427,9 +441,10 @@ BOOST_AUTO_TEST_CASE(block__header_setter_1__roundtrip__success)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(header != instance.header());
     instance.set_header(header);
     BOOST_REQUIRE(header == instance.header());
@@ -442,12 +457,13 @@ BOOST_AUTO_TEST_CASE(block__header_setter_2__roundtrip__success)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     // This must be non-const.
     chain::header dup_header(header);
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(header != instance.header());
     instance.set_header(std::move(dup_header));
     BOOST_REQUIRE(header == instance.header());
@@ -460,7 +476,8 @@ BOOST_AUTO_TEST_CASE(block__transactions_accessor__always__returns_initialized_v
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -482,7 +499,7 @@ BOOST_AUTO_TEST_CASE(block__transactions_setter_1__roundtrip__success)
         chain::transaction(4, 16, {}, {})
     };
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(transactions != instance.transactions());
     instance.set_transactions(transactions);
     BOOST_REQUIRE(transactions == instance.transactions());
@@ -500,7 +517,7 @@ BOOST_AUTO_TEST_CASE(block__transactions_setter_2__roundtrip__success)
     // This must be non-const.
     chain::transaction::list dup_transactions(transactions);
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(transactions != instance.transactions());
     instance.set_transactions(std::move(dup_transactions));
     BOOST_REQUIRE(transactions == instance.transactions());
@@ -513,7 +530,8 @@ BOOST_AUTO_TEST_CASE(block__operator_assign_equals__always__matches_equivalent)
         hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
         531234u,
         6523454u,
-        68644u);
+        68644u,
+        settings());
 
     const chain::transaction::list transactions
     {
@@ -526,7 +544,7 @@ BOOST_AUTO_TEST_CASE(block__operator_assign_equals__always__matches_equivalent)
     chain::block value(header, transactions);
 
     BOOST_REQUIRE(value.is_valid());
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(!instance.is_valid());
     instance = std::move(value);
     BOOST_REQUIRE(instance.is_valid());
@@ -542,7 +560,8 @@ BOOST_AUTO_TEST_CASE(block__operator_boolean_equals__duplicates__returns_true)
             hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
             531234u,
             6523454u,
-            68644u),
+            68644u,
+            settings()),
         {
             chain::transaction(1, 48, {}, {}),
             chain::transaction(2, 32, {}, {}),
@@ -561,7 +580,8 @@ BOOST_AUTO_TEST_CASE(block__operator_boolean_equals__differs__returns_false)
             hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
             531234u,
             6523454u,
-            68644u),
+            68644u,
+            settings()),
         {
             chain::transaction(1, 48, {}, {}),
             chain::transaction(2, 32, {}, {}),
@@ -569,7 +589,7 @@ BOOST_AUTO_TEST_CASE(block__operator_boolean_equals__differs__returns_false)
         });
 
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(!(instance == expected));
 }
 
@@ -581,7 +601,8 @@ BOOST_AUTO_TEST_CASE(block__operator_boolean_not_equals__duplicates__returns_fal
             hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
             531234u,
             6523454u,
-            68644u),
+            68644u,
+            settings()),
         {
             chain::transaction(1, 48, {}, {}),
             chain::transaction(2, 32, {}, {}),
@@ -600,14 +621,15 @@ BOOST_AUTO_TEST_CASE(block__operator_boolean_not_equals__differs__returns_true)
             hash_literal("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"),
             531234u,
             6523454u,
-            68644u),
+            68644u,
+            settings()),
         {
             chain::transaction(1, 48, {}, {}),
             chain::transaction(2, 32, {}, {}),
             chain::transaction(4, 16, {}, {})
         });
 
-    chain::block instance;
+    chain::block instance(settings{});
     BOOST_REQUIRE(instance != expected);
 }
 
@@ -617,41 +639,41 @@ BOOST_AUTO_TEST_SUITE(block_is_distinct_transaction_set_tests)
 
 BOOST_AUTO_TEST_CASE(block__distinct_transactions__empty__true)
 {
-    chain::block value;
+    chain::block value(settings{});
     BOOST_REQUIRE(value.is_distinct_transaction_set());
 }
 
 BOOST_AUTO_TEST_CASE(validate_block__is_distinct_tx_set__single__true)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} } });
     BOOST_REQUIRE(value.is_distinct_transaction_set());
 }
 
 BOOST_AUTO_TEST_CASE(validate_block__is_distinct_tx_set__duplicate__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} }, { 1, 0, {}, {} } });
     BOOST_REQUIRE(!value.is_distinct_transaction_set());
 }
 
 BOOST_AUTO_TEST_CASE(validate_block__is_distinct_tx_set__distinct_by_version__true)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} }, { 2, 0, {}, {} }, { 3, 0, {}, {} } });
     BOOST_REQUIRE(value.is_distinct_transaction_set());
 }
 
 BOOST_AUTO_TEST_CASE(validate_block__is_distinct_tx_set__partialy_distinct_by_version__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} }, { 2, 0, {}, {} }, { 2, 0, {}, {} } });
     BOOST_REQUIRE(!value.is_distinct_transaction_set());
 }
 
 BOOST_AUTO_TEST_CASE(validate_block__is_distinct_tx_set__partialy_distinct_not_adjacent_by_version__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} }, { 2, 0, {}, {} }, { 1, 0, {}, {} } });
     BOOST_REQUIRE(!value.is_distinct_transaction_set());
 }
@@ -662,20 +684,20 @@ BOOST_AUTO_TEST_SUITE(block_is_forward_reference_tests)
 
 BOOST_AUTO_TEST_CASE(block__is_forward_reference__no_transactions__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     BOOST_REQUIRE(!value.is_forward_reference());
 }
 
 BOOST_AUTO_TEST_CASE(block__is_forward_reference__multiple_empty_transactions__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} }, { 2, 0, {}, {} } });
     BOOST_REQUIRE(!value.is_forward_reference());
 }
 
 BOOST_AUTO_TEST_CASE(block__is_forward_reference__backward_reference__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     chain::transaction before{ 2, 0, {}, {} };
     chain::transaction after{ 1, 0, { { { before.hash(), 0 }, {}, 0 } }, {} };
     value.set_transactions({ before, after });
@@ -684,14 +706,14 @@ BOOST_AUTO_TEST_CASE(block__is_forward_reference__backward_reference__false)
 
 BOOST_AUTO_TEST_CASE(block__is_forward_reference__duplicate_transactions__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     value.set_transactions({ { 1, 0, {}, {} }, { 1, 0, {}, {} } });
     BOOST_REQUIRE(!value.is_forward_reference());
 }
 
 BOOST_AUTO_TEST_CASE(block__is_forward_reference__coinbase_and_multiple_empty_transactions__false)
 {
-    chain::block value;
+    chain::block value(settings{});
     chain::transaction coinbase{ 1, 0, { { { null_hash, chain::point::null_index }, {}, 0 } }, {} };
     value.set_transactions({ coinbase, { 2, 0, {}, {} }, { 3, 0, {}, {} } });
     BOOST_REQUIRE(!value.is_forward_reference());
@@ -699,7 +721,7 @@ BOOST_AUTO_TEST_CASE(block__is_forward_reference__coinbase_and_multiple_empty_tr
 
 BOOST_AUTO_TEST_CASE(block__is_forward_reference__forward_reference__true)
 {
-    chain::block value;
+    chain::block value(settings{});
     chain::transaction after{ 2, 0, {}, {} };
     chain::transaction before{ 1, 0, { { { after.hash(), 0 }, {}, 0 } }, {} };
     value.set_transactions({ before, after });

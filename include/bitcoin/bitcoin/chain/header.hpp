@@ -35,6 +35,12 @@
 #include <bitcoin/bitcoin/utility/writer.hpp>
 
 namespace libbitcoin {
+
+/*
+ * Forward declaration to break header cycle.
+ */
+class settings;
+
 namespace chain {
 
 class BC_API header
@@ -43,41 +49,48 @@ public:
     typedef std::vector<header> list;
     typedef std::shared_ptr<header> ptr;
     typedef std::shared_ptr<const header> const_ptr;
-    typedef std::vector<header> ptr_list;
+    typedef std::vector<ptr> ptr_list;
     typedef std::vector<const_ptr> const_ptr_list;
 
     // THIS IS FOR LIBRARY USE ONLY, DO NOT CREATE A DEPENDENCY ON IT.
     struct validation
     {
-        bool simulate = false;
         uint64_t originator = 0;
-        code error = error::success;
         chain_state::ptr state = nullptr;
 
-        /// Transactions are populated (don't download).
+        /// The block validation error code (if validated).
+        code error = error::success;
+
+        /// Header exists, in any state (don't download it).
+        bool exists = false;
+
+        /// Block transactions are populated (don't download block/txs).
         bool populated = false;
 
-        /// Existing header, always valid (don't validate, update vs. create).
-        bool pooled = false;
+        /// Block has been validated (don't re-validate).
+        bool validated = false;
 
-        /// The header is indexed (reject).
-        bool duplicate = false;
+        /// Header is a candidate (and is not yet invalid).
+        bool candidate = false;
+
+        /// Block is confirmed, relative to queried fork point (and is valid).
+        bool confirmed = false;
     };
 
     // Constructors.
     //-------------------------------------------------------------------------
 
-    header();
+    header(const settings& settings);
 
     header(header&& other);
     header(const header& other);
 
     header(uint32_t version, const hash_digest& previous_block_hash,
         const hash_digest& merkle, uint32_t timestamp, uint32_t bits,
-        uint32_t nonce);
+        uint32_t nonce, const settings& settings);
     header(uint32_t version, hash_digest&& previous_block_hash,
         hash_digest&& merkle, uint32_t timestamp, uint32_t bits,
-        uint32_t nonce);
+        uint32_t nonce, const settings& settings);
 
     // Operators.
     //-------------------------------------------------------------------------
@@ -91,12 +104,16 @@ public:
     // Deserialization.
     //-------------------------------------------------------------------------
 
-    static header factory(const data_chunk& data, bool wire=true);
-    static header factory(std::istream& stream, bool wire=true);
-    static header factory(reader& source, bool wire=true);
-    static header factory(reader& source, hash_digest&& hash, bool wire=true);
-    static header factory(reader& source, const hash_digest& hash,
+    static header factory(const data_chunk& data, const settings& settings,
         bool wire=true);
+    static header factory(std::istream& stream, const settings& settings,
+        bool wire=true);
+    static header factory(reader& source, const settings& settings,
+        bool wire=true);
+    static header factory(reader& source, hash_digest&& hash,
+        const settings& settings, bool wire=true);
+    static header factory(reader& source, const hash_digest& hash,
+        const settings& settings, bool wire=true);
 
     bool from_data(const data_chunk& data, bool wire=true);
     bool from_data(std::istream& stream, bool wire=true);
@@ -179,6 +196,7 @@ private:
     uint32_t timestamp_;
     uint32_t bits_;
     uint32_t nonce_;
+    const settings& settings_;
 };
 
 } // namespace chain

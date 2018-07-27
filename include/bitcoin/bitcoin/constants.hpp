@@ -95,74 +95,17 @@ BC_CONSTEXPR uint32_t relative_locktime_mask = 0x0000ffff;
 BC_CONSTEXPR uint32_t relative_locktime_disabled = 0x80000000;
 BC_CONSTEXPR uint32_t relative_locktime_time_locked = 0x00400000;
 
-// Timespan constants.
-//-----------------------------------------------------------------------------
-
-BC_CONSTEXPR uint32_t retargeting_factor = 4;
-BC_CONSTEXPR uint32_t easy_spacing_seconds = 20 * 60;
-BC_CONSTEXPR uint32_t target_spacing_seconds = 10 * 60;
-BC_CONSTEXPR uint32_t target_timespan_seconds = 2 * 7 * 24 * 60 * 60;
-BC_CONSTEXPR uint32_t timestamp_future_seconds = 2 * 60 * 60;
-BC_CONSTEXPR uint32_t retarget_proof_of_work_limit = 0x1d00ffff;
-BC_CONSTEXPR uint32_t no_retarget_proof_of_work_limit = 0x207fffff;
-BC_CONSTFUNC uint32_t work_limit(bool retarget=true)
-{
-    return retarget ? retarget_proof_of_work_limit : no_retarget_proof_of_work_limit;
-}
-
-// The upper and lower bounds for the retargeting timespan.
-BC_CONSTEXPR uint32_t min_timespan =
-    target_timespan_seconds / retargeting_factor;
-BC_CONSTEXPR uint32_t max_timespan =
-    target_timespan_seconds * retargeting_factor;
-
-// The target number of blocks for 2 weeks of work (2016 blocks).
-BC_CONSTEXPR size_t retargeting_interval =
-    target_timespan_seconds / target_spacing_seconds;
-
 // Fork constants.
 //-----------------------------------------------------------------------------
 
-// Consensus rule change activation and enforcement parameters.
-BC_CONSTEXPR size_t first_version = 1;
-BC_CONSTEXPR size_t bip34_version = 2;
-BC_CONSTEXPR size_t bip66_version = 3;
-BC_CONSTEXPR size_t bip65_version = 4;
-BC_CONSTEXPR uint32_t bip9_version_bit0 = 1u << 0;
-BC_CONSTEXPR uint32_t bip9_version_bit1 = 1u << 1;
-BC_CONSTEXPR uint32_t bip9_version_base = 0x20000000;
-
-// Mainnet activation parameters (bip34-style activations).
-BC_CONSTEXPR size_t mainnet_active = 750;
-BC_CONSTEXPR size_t mainnet_enforce = 950;
-BC_CONSTEXPR size_t mainnet_sample = 1000;
-
-// Testnet activation parameters (bip34-style activations).
-BC_CONSTEXPR size_t testnet_active = 51;
-BC_CONSTEXPR size_t testnet_enforce = 75;
-BC_CONSTEXPR size_t testnet_sample = 100;
-
 // Mainnet frozen activation heights (frozen_activations).
-BC_CONSTEXPR size_t mainnet_bip65_freeze = 388381;
-BC_CONSTEXPR size_t mainnet_bip66_freeze = 363725;
 BC_CONSTEXPR size_t mainnet_bip34_freeze = 227931;
 
 // Testnet frozen activation heights (frozen_activations).
-BC_CONSTEXPR size_t testnet_bip65_freeze = 581885;
-BC_CONSTEXPR size_t testnet_bip66_freeze = 330776;
 BC_CONSTEXPR size_t testnet_bip34_freeze = 21111;
 
 // Regtest (arbitrary) frozen activation heights (frozen_activations).
-BC_CONSTEXPR size_t regtest_bip65_freeze = 1351;
-BC_CONSTEXPR size_t regtest_bip66_freeze = 1251;
 BC_CONSTEXPR size_t regtest_bip34_freeze = 0;
-
-// Block 514 is the first testnet block after date-based activation.
-// Block 173805 is the first mainnet block after date-based activation.
-// The first mainnet activation window hardwired in satoshi 0.6.0rc1 failed.
-BC_CONSTEXPR uint32_t mainnet_bip16_activation_time = 0x4f779a80;
-BC_CONSTEXPR uint32_t testnet_bip16_activation_time = 0x4f3af580;
-BC_CONSTEXPR uint32_t regtest_bip16_activation_time = 0x4f3af580;
 
 // github.com/bitcoin/bips/blob/master/bip-0030.mediawiki#specification
 static const config::checkpoint mainnet_bip30_exception_checkpoint1

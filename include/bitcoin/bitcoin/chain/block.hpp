@@ -39,6 +39,12 @@
 #include <bitcoin/bitcoin/utility/writer.hpp>
 
 namespace libbitcoin {
+
+/**
+ * Forward declaration to break header cycle.
+ */
+class settings;
+
 namespace chain {
 
 class BC_API block
@@ -66,7 +72,7 @@ public:
     // Constructors.
     //-------------------------------------------------------------------------
 
-    block();
+    block(const settings& settings);
 
     block(block&& other);
     block(const block& other);
@@ -87,9 +93,12 @@ public:
     // Deserialization.
     //-------------------------------------------------------------------------
 
-    static block factory(const data_chunk& data, bool witness=false);
-    static block factory(std::istream& stream, bool witness=false);
-    static block factory(reader& source, bool witness=false);
+    static block factory(const data_chunk& data, const settings& settings,
+        bool witness=false);
+    static block factory(std::istream& stream, const settings& settings,
+        bool witness=false);
+    static block factory(reader& source, const settings& settings,
+        bool witness=false);
 
     bool from_data(const data_chunk& data, bool witness=false);
     bool from_data(std::istream& stream, bool witness=false);
@@ -124,9 +133,6 @@ public:
     // Utilities.
     //-------------------------------------------------------------------------
 
-    static block genesis_mainnet();
-    static block genesis_testnet();
-    static block genesis_regtest();
     static size_t locator_size(size_t top);
     static indexes locator_heights(size_t top);
 
@@ -141,7 +147,6 @@ public:
     uint64_t fees() const;
     uint64_t claim() const;
     uint64_t reward(size_t height) const;
-    uint256_t proof() const;
     hash_digest generate_merkle_root(bool witness=false) const;
     size_t signature_operations() const;
     size_t signature_operations(bool bip16, bool bip141) const;

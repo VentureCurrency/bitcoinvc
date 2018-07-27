@@ -25,6 +25,7 @@
 #include <bitcoin/bitcoin/message/version.hpp>
 #include <bitcoin/bitcoin/chain/header.hpp>
 #include <bitcoin/bitcoin/chain/transaction.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include <bitcoin/bitcoin/utility/reader.hpp>
 
@@ -35,29 +36,32 @@ const std::string block::command = "block";
 const uint32_t block::version_minimum = version::level::minimum;
 const uint32_t block::version_maximum = version::level::maximum;
 
-block block::factory(uint32_t version, const data_chunk& data)
+block block::factory(uint32_t version, const data_chunk& data,
+    const settings& settings)
 {
-    block instance;
+    block instance(settings);
     instance.from_data(version, data);
     return instance;
 }
 
-block block::factory(uint32_t version, std::istream& stream)
+block block::factory(uint32_t version, std::istream& stream,
+    const settings& settings)
 {
-    block instance;
+    block instance(settings);
     instance.from_data(version, stream);
     return instance;
 }
 
-block block::factory(uint32_t version, reader& source)
+block block::factory(uint32_t version, reader& source,
+    const settings& settings)
 {
-    block instance;
+    block instance(settings);
     instance.from_data(version, source);
     return instance;
 }
 
-block::block()
-  : chain::block()
+block::block(const settings& settings)
+  : chain::block(settings)
 {
 }
 

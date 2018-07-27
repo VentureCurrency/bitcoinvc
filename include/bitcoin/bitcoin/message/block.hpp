@@ -28,6 +28,7 @@
 #include <bitcoin/bitcoin/chain/transaction.hpp>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/message/version.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include <bitcoin/bitcoin/utility/reader.hpp>
 
@@ -45,11 +46,14 @@ public:
     typedef std::shared_ptr<const_ptr_list> const_ptr_list_ptr;
     typedef std::shared_ptr<const const_ptr_list> const_ptr_list_const_ptr;
 
-    static block factory(uint32_t version, const data_chunk& data);
-    static block factory(uint32_t version, std::istream& stream);
-    static block factory(uint32_t version, reader& source);
+    static block factory(uint32_t version, const data_chunk& data,
+        const settings& settings);
+    static block factory(uint32_t version, std::istream& stream,
+        const settings& settings);
+    static block factory(uint32_t version, reader& source,
+        const settings& settings);
 
-    block();
+    block(const settings& settings);
 
     block(block&& other);
     block(const block& other);

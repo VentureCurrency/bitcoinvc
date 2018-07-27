@@ -31,6 +31,9 @@
 #include <bitcoin/bitcoin/machine/rule_fork.hpp>
 
 namespace libbitcoin {
+
+class settings;
+
 namespace chain {
 
 class block;
@@ -125,25 +128,28 @@ public:
 
     /// Checkpoints must be ordered by height with greatest at back.
     static map get_map(size_t height, const checkpoints& checkpoints,
-        uint32_t forks);
+        uint32_t forks, size_t retargeting_interval, size_t net_sample);
 
-    static uint32_t signal_version(uint32_t forks);
+    static uint32_t signal_version(uint32_t forks, const settings& settings);
 
     /// Create pool state from top chain top block state.
-    chain_state(const chain_state& top);
+    chain_state(const chain_state& top, const settings& settings);
 
     /// Create block state from tx pool chain state of same height.
-    chain_state(const chain_state& pool, const chain::block& block);
+    chain_state(const chain_state& pool, const chain::block& block,
+        const settings& settings);
 
     /// Create header state from header pool chain state of parent block.
-    chain_state(const chain_state& parent, const chain::header& header);
+    chain_state(const chain_state& parent, const chain::header& header,
+        const settings& settings);
 
     /// Checkpoints must be ordered by height with greatest at back.
     /// Forks and checkpoints must match those provided for map creation.
     chain_state(data&& values, const checkpoints& checkpoints, uint32_t forks,
-        uint32_t stale_seconds);
+        uint32_t stale_seconds, const settings& settings);
 
     /// Properties.
+    const hash_digest& hash() const;
     size_t height() const;
     uint32_t enabled_forks() const;
     uint32_t minimum_block_version() const;
@@ -179,31 +185,44 @@ protected:
         uint32_t maximum_transaction_version;
     };
 
-    static activations activation(const data& values, uint32_t forks);
+    static activations activation(const data& values, uint32_t forks,
+        const settings& settings);
     static uint32_t median_time_past(const data& values, uint32_t forks);
-    static uint32_t work_required(const data& values, uint32_t forks);
+    static uint32_t work_required(const data& values, uint32_t forks,
+        const settings& settings);
 
 private:
-    static size_t bits_count(size_t height, uint32_t forks);
-    static size_t version_count(size_t height, uint32_t forks);
+    static size_t bits_count(size_t height, uint32_t forks,
+        size_t retargeting_interval);
+    static size_t version_count(size_t height, uint32_t forks,
+        size_t net_sample);
     static size_t timestamp_count(size_t height, uint32_t forks);
-    static size_t retarget_height(size_t height, uint32_t forks);
+    static size_t retarget_height(size_t height, uint32_t forks,
+        size_t retargeting_interval);
     static size_t bip9_bit0_height(size_t height, uint32_t forks);
     static size_t bip9_bit1_height(size_t height, uint32_t forks);
 
-    static data to_pool(const chain_state& top);
+    static data to_pool(const chain_state& top, const settings& settings);
     static data to_block(const chain_state& pool, const block& block);
-    static data to_header(const chain_state& parent, const header& header);
+    data to_header(const chain_state& parent, const header& header,
+        const settings& settings);
 
-    static uint32_t work_required_retarget(const data& values);
-    static uint32_t retarget_timespan(const chain_state::data& values);
+    static uint32_t work_required_retarget(const data& values,
+        uint32_t retarget_proof_of_work_limit, uint32_t min_timespan,
+        uint32_t max_timespan, uint32_t target_timespan_seconds);
+    static uint32_t retarget_timespan(const chain_state::data& values,
+        uint32_t min_timespan, uint32_t max_timespan);
 
     // easy blocks
-    static uint32_t easy_work_required(const data& values);
-    static uint32_t easy_time_limit(const chain_state::data& values);
-    static bool is_retarget_or_non_limit(size_t height, uint32_t bits);
-    static bool is_retarget_height(size_t height);
-    static size_t retarget_distance(size_t height);
+    static uint32_t easy_work_required(const data& values,
+        size_t retargeting_interval, uint32_t retarget_proof_of_work_limit,
+        uint32_t easy_spacing_seconds);
+    static uint32_t easy_time_limit(const chain_state::data& values,
+        int64_t spacing);
+    static bool is_retarget_or_non_limit(size_t height, uint32_t bits,
+        size_t retargeting_interval, uint32_t retarget_proof_of_work_limit);
+    static bool is_retarget_height(size_t height, size_t retargeting_interval);
+    static size_t retarget_distance(size_t height, size_t retargeting_interval);
 
     // This is retained as an optimization for other constructions.
     // A similar height clone can be partially computed, reducing query cost.

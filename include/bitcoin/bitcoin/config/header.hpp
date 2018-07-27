@@ -23,6 +23,7 @@
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/chain/header.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 
 namespace libbitcoin {
 namespace config {
@@ -38,13 +39,13 @@ public:
     /**
      * Default constructor.
      */
-    header();
+    header(const libbitcoin::settings& settings);
 
     /**
      * Initialization constructor.
      * @param[in]  hexcode  The value to initialize with.
      */
-    header(const std::string& hexcode);
+    header(const std::string& hexcode, const libbitcoin::settings& settings);
 
     /**
      * Initialization constructor.

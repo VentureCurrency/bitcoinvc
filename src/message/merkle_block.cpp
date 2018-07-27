@@ -23,6 +23,7 @@
 #include <bitcoin/bitcoin/math/limits.hpp>
 #include <bitcoin/bitcoin/message/messages.hpp>
 #include <bitcoin/bitcoin/message/version.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/utility/container_sink.hpp>
 #include <bitcoin/bitcoin/utility/container_source.hpp>
@@ -37,31 +38,31 @@ const uint32_t merkle_block::version_minimum = version::level::bip37;
 const uint32_t merkle_block::version_maximum = version::level::maximum;
 
 merkle_block merkle_block::factory(uint32_t version,
-    const data_chunk& data)
+    const data_chunk& data, const settings& settings)
 {
-    merkle_block instance;
-    instance.from_data(version, data);
+    merkle_block instance(settings);
+    instance.from_data(version, data, settings);
     return instance;
 }
 
 merkle_block merkle_block::factory(uint32_t version,
-    std::istream& stream)
+    std::istream& stream, const settings& settings)
 {
-    merkle_block instance;
-    instance.from_data(version, stream);
+    merkle_block instance(settings);
+    instance.from_data(version, stream, settings);
     return instance;
 }
 
 merkle_block merkle_block::factory(uint32_t version,
-    reader& source)
+    reader& source, const settings& settings)
 {
-    merkle_block instance;
-    instance.from_data(version, source);
+    merkle_block instance(settings);
+    instance.from_data(version, source, settings);
     return instance;
 }
 
-merkle_block::merkle_block()
-  : header_(), total_transactions_(0), hashes_(), flags_()
+merkle_block::merkle_block(const settings& settings)
+  : header_(settings), total_transactions_(0), hashes_(), flags_()
 {
 }
 
@@ -106,9 +107,9 @@ bool merkle_block::is_valid() const
     return !hashes_.empty() || !flags_.empty() || header_.is_valid();
 }
 
-void merkle_block::reset()
+void merkle_block::reset(const settings& settings)
 {
-    header_ = chain::header{};
+    header_ = chain::header(settings);
     total_transactions_ = 0;
     hashes_.clear();
     hashes_.shrink_to_fit();
@@ -116,21 +117,24 @@ void merkle_block::reset()
     flags_.shrink_to_fit();
 }
 
-bool merkle_block::from_data(uint32_t version, const data_chunk& data)
+bool merkle_block::from_data(uint32_t version, const data_chunk& data,
+    const settings& settings)
 {
     data_source istream(data);
-    return from_data(version, istream);
+    return from_data(version, istream, settings);
 }
 
-bool merkle_block::from_data(uint32_t version, std::istream& stream)
+bool merkle_block::from_data(uint32_t version, std::istream& stream,
+    const settings& settings)
 {
     istream_reader source(stream);
-    return from_data(version, source);
+    return from_data(version, source, settings);
 }
 
-bool merkle_block::from_data(uint32_t version, reader& source)
+bool merkle_block::from_data(uint32_t version, reader& source,
+    const settings& settings)
 {
-    reset();
+    reset(settings);
 
     if (!header_.from_data(source))
         return false;
@@ -153,7 +157,7 @@ bool merkle_block::from_data(uint32_t version, reader& source)
         source.invalidate();
 
     if (!source)
-        reset();
+        reset(settings);
 
     return source;
 }
@@ -176,7 +180,7 @@ void merkle_block::to_data(uint32_t version, std::ostream& stream) const
     to_data(version, sink);
 }
 
-void merkle_block::to_data(uint32_t version, writer& sink) const
+void merkle_block::to_data(uint32_t , writer& sink) const
 {
     header_.to_data(sink);
 
@@ -191,11 +195,11 @@ void merkle_block::to_data(uint32_t version, writer& sink) const
     sink.write_bytes(flags_);
 }
 
-size_t merkle_block::serialized_size(uint32_t version) const
+size_t merkle_block::serialized_size(uint32_t) const
 {
     return header_.serialized_size() + 4u +
-        message::variable_uint_size(hashes_.size()) + (hash_size * hashes_.size()) +
-        message::variable_uint_size(flags_.size()) + flags_.size();
+        variable_uint_size(hashes_.size()) + (hash_size * hashes_.size()) +
+        variable_uint_size(flags_.size()) + flags_.size();
 }
 
 chain::header& merkle_block::header()

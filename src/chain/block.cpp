@@ -44,6 +44,7 @@
 #include <bitcoin/bitcoin/machine/opcode.hpp>
 #include <bitcoin/bitcoin/machine/rule_fork.hpp>
 #include <bitcoin/bitcoin/message/messages.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 #include <bitcoin/bitcoin/utility/asio.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/utility/container_sink.hpp>
@@ -58,71 +59,11 @@ using namespace bc::config;
 using namespace bc::machine;
 using namespace boost::adaptors;
 
-static const std::string encoded_mainnet_genesis_block =
-    "01000000"
-    "0000000000000000000000000000000000000000000000000000000000000000"
-    "3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"
-    "29ab5f49"
-    "ffff001d"
-    "1dac2b7c"
-    "01"
-    "01000000"
-    "01"
-    "0000000000000000000000000000000000000000000000000000000000000000ffffffff"
-    "4d"
-    "04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
-    "ffffffff"
-    "01"
-    "00f2052a01000000"
-    "43"
-    "4104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac"
-    "00000000";
-
-static const std::string encoded_testnet_genesis_block =
-    "01000000"
-    "0000000000000000000000000000000000000000000000000000000000000000"
-    "3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"
-    "dae5494d"
-    "ffff001d"
-    "1aa4ae18"
-    "01"
-    "01000000"
-    "01"
-    "0000000000000000000000000000000000000000000000000000000000000000ffffffff"
-    "4d"
-    "04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
-    "ffffffff"
-    "01"
-    "00f2052a01000000"
-    "43"
-    "4104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac"
-    "00000000";
-
-static const std::string encoded_regtest_genesis_block =
-    "01000000"
-    "0000000000000000000000000000000000000000000000000000000000000000"
-    "3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"
-    "dae5494d"
-    "ffff7f20"
-    "02000000"
-    "01"
-    "01000000"
-    "01"
-    "0000000000000000000000000000000000000000000000000000000000000000ffffffff"
-    "4d"
-    "04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
-    "ffffffff"
-    "01"
-    "00f2052a01000000"
-    "43"
-    "4104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac"
-    "00000000";
-
 // Constructors.
 //-----------------------------------------------------------------------------
 
-block::block()
-  : header_{},
+block::block(const bc::settings& settings)
+  : header_(settings),
     metadata{}
 {
 }
@@ -199,25 +140,27 @@ bool block::operator!=(const block& other) const
 //-----------------------------------------------------------------------------
 
 // static
-block block::factory(const data_chunk& data, bool witness)
+block block::factory(const data_chunk& data, const bc::settings& settings,
+    bool witness)
 {
-    block instance;
+    block instance(settings);
     instance.from_data(data, witness);
     return instance;
 }
 
 // static
-block block::factory(std::istream& stream, bool witness)
+block block::factory(std::istream& stream, const bc::settings& settings,
+    bool witness)
 {
-    block instance;
+    block instance(settings);
     instance.from_data(stream, witness);
     return instance;
 }
 
 // static
-block block::factory(reader& source, bool witness)
+block block::factory(reader& source, const bc::settings& settings, bool witness)
 {
-    block instance;
+    block instance(settings);
     instance.from_data(source, witness);
     return instance;
 }
@@ -435,42 +378,6 @@ hash_digest block::hash() const
 // Utilities.
 //-----------------------------------------------------------------------------
 
-chain::block block::genesis_mainnet()
-{
-    data_chunk data;
-    decode_base16(data, encoded_mainnet_genesis_block);
-    const auto genesis = chain::block::factory(data);
-
-    BITCOIN_ASSERT(genesis.is_valid());
-    BITCOIN_ASSERT(genesis.transactions().size() == 1);
-    BITCOIN_ASSERT(genesis.generate_merkle_root() == genesis.header().merkle());
-    return genesis;
-}
-
-chain::block block::genesis_testnet()
-{
-    data_chunk data;
-    decode_base16(data, encoded_testnet_genesis_block);
-    const auto genesis = chain::block::factory(data);
-
-    BITCOIN_ASSERT(genesis.is_valid());
-    BITCOIN_ASSERT(genesis.transactions().size() == 1);
-    BITCOIN_ASSERT(genesis.generate_merkle_root() == genesis.header().merkle());
-    return genesis;
-}
-
-chain::block block::genesis_regtest()
-{
-    data_chunk data;
-    decode_base16(data, encoded_regtest_genesis_block);
-    const auto genesis = chain::block::factory(data);
-
-    BITCOIN_ASSERT(genesis.is_valid());
-    BITCOIN_ASSERT(genesis.transactions().size() == 1);
-    BITCOIN_ASSERT(genesis.generate_merkle_root() == genesis.header().merkle());
-    return genesis;
-}
-
 // With a 32 bit chain the size of the result should not exceed 43 and with a
 // 64 bit chain should not exceed 75, using a limit of: 10 + log2(height) + 1.
 size_t block::locator_size(size_t top)
@@ -480,7 +387,8 @@ size_t block::locator_size(size_t top)
 
     const auto first_ten_or_top = std::min(size_t(10), top);
     const auto remaining = top - first_ten_or_top;
-    const auto back_off = remaining == 0 ? 0.0 : std::log2(remaining);
+    const auto back_off = remaining == 0 ? 0.0 :
+                          remaining == 1 ? 1.0 : std::log2(remaining);
     const auto rounded_up_log = static_cast<size_t>(std::nearbyint(back_off));
     return first_ten_or_top + rounded_up_log + size_t(1);
 }

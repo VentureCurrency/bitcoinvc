@@ -24,18 +24,20 @@
 #include <boost/program_options.hpp>
 #include <bitcoin/bitcoin/chain/header.hpp>
 #include <bitcoin/bitcoin/config/base16.hpp>
+#include <bitcoin/bitcoin/settings.hpp>
 
 namespace libbitcoin {
 namespace config {
 
 using namespace boost::program_options;
 
-header::header()
-  : value_()
+header::header(const libbitcoin::settings& settings)
+  : value_(settings)
 {
 }
 
-header::header(const std::string& hexcode)
+header::header(const std::string& hexcode, const libbitcoin::settings& settings)
+  : value_(settings)
 {
     std::stringstream(hexcode) >> *this;
 }
