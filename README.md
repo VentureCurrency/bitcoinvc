@@ -2,6 +2,8 @@
 
 *The Bitcoin Venture Currency Development Library*
 
+![BitcoinVC](https://github.com/VentureCurrency/bitcoinvc/raw/master/BVC_outline_400px.png)
+
 [Documentation](https://github.com/VentureCurrency/bitcoinvc/wiki) is available on the wiki.
 
 **License Overview**
