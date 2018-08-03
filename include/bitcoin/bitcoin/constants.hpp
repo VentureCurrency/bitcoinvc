@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_CONSTANTS_HPP
-#define LIBBITCOIN_CONSTANTS_HPP
+#ifndef BITCOINVC_CONSTANTS_HPP
+#define BITCOINVC_CONSTANTS_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -28,13 +30,13 @@
 #include <bitcoin/bitcoin/message/network_address.hpp>
 #include <bitcoin/bitcoin/version.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 // This guards assumptions within the codebase.
 static_assert(sizeof(size_t) == sizeof(uint32_t) || 
     sizeof(size_t) == sizeof(uint64_t), "unsupported size_t");
 
-#define BC_USER_AGENT "/libbitcoin:" LIBBITCOIN_VERSION "/"
+#define BC_USER_AGENT "/bitcoinvc:" BITCOINVC_VERSION "/"
 
 // Generic constants.
 //-----------------------------------------------------------------------------
@@ -260,6 +262,6 @@ BC_CONSTFUNC uint64_t max_money(bool retarget=true)
     return recursive_money * subsidy_interval(retarget);
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

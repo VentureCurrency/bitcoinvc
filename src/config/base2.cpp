@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/utility/binary.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace config {
 
 base2::base2()
@@ -80,4 +82,4 @@ std::ostream& operator<<(std::ostream& output, const base2& argument)
 }
 
 } // namespace config
-} // namespace libbitcoin
+} // namespace bitcoinvc

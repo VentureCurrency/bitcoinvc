@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_MACHINE_OPCODE_HPP
-#define LIBBITCOIN_MACHINE_OPCODE_HPP
+#ifndef BITCOINVC_MACHINE_OPCODE_HPP
+#define BITCOINVC_MACHINE_OPCODE_HPP
 
 #include <cstdint>
 #include <string>
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace machine {
 
 enum class opcode : uint8_t
@@ -311,6 +313,6 @@ BC_API bool opcode_from_hexadecimal(opcode& out_code,
     const std::string& value);
 
 } // namespace machine
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

@@ -1,11 +1,11 @@
 #!/bin/bash
 ###############################################################################
 #  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-#
+#  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
 ###############################################################################
-# Script to build and install libbitcoin.
+# Script to build and install bitcoinvc.
 #
 # Script options:
 # --build-icu              Builds ICU libraries.
@@ -32,7 +32,7 @@
 #==============================================================================
 # The default build directory.
 #------------------------------------------------------------------------------
-BUILD_DIR="build-libbitcoin"
+BUILD_DIR="build-bitcoinvc"
 
 # ICU archive.
 #------------------------------------------------------------------------------
@@ -297,7 +297,7 @@ fi
 
 display_configuration()
 {
-    display_message "Libbitcoin installer configuration."
+    display_message "BitcoinVC installer configuration."
     display_message "--------------------------------------------------------------------"
     display_message "OS                    : $OS"
     display_message "PARALLEL              : $PARALLEL"
@@ -328,27 +328,27 @@ display_configuration()
 display_install_help()
 {
     display_message "Usage: ./install.sh [OPTION]..."
-    display_message "Manage the installation of libbitcoin."
+    display_message "Manage the installation of bitcoinvc."
     display_message "Script options:"
     display_message "  --with-icu               Compile with International Components for Unicode."
     display_message "                             Since the addition of BIP-39 and later BIP-38 "
-    display_message "                             support, libbitcoin conditionally incorporates ICU "
+    display_message "                             support, bitcoinvc conditionally incorporates ICU "
     display_message "                              to provide BIP-38 and BIP-39 passphrase "
     display_message "                             normalization features. Currently "
-    display_message "                             libbitcoin-explorer is the only other library that "
+    display_message "                             bitcoinvc-explorer is the only other library that "
     display_message "                             accesses this feature, so if you do not intend to "
     display_message "                             use passphrase normalization this dependency can "
     display_message "                             be avoided."
     display_message "  --with-qrencode          Compile with QR Code Support"
-    display_message "                             Since the addition of qrcode support, libbitcoin "
+    display_message "                             Since the addition of qrcode support, bitcoinvc "
     display_message "                             conditionally incorporates qrencode. Currently "
-    display_message "                             libbitcoin-explorer is the only other library that "
+    display_message "                             bitcoinvc-explorer is the only other library that "
     display_message "                             accesses this feature, so if you do not intend to "
     display_message "                             use qrcode this dependency can be avoided."
     display_message "  --with-png               Compile with QR Code PNG Output Support"
-    display_message "                             Since the addition of png support, libbitcoin "
+    display_message "                             Since the addition of png support, bitcoinvc "
     display_message "                             conditionally incorporates libpng (which in turn "
-    display_message "                             requires zlib). Currently libbitcoin-explorer is "
+    display_message "                             requires zlib). Currently bitcoinvc-explorer is "
     display_message "                             the only other library that accesses this feature, "
     display_message "                             so if you do not intend to use png this dependency "
     display_message "                             can be avoided."
@@ -619,7 +619,7 @@ build_from_tarball_boost()
     initialize_boost_configuration
     initialize_boost_icu_configuration
 
-    display_message "Libbitcoin boost configuration."
+    display_message "BitcoinVC boost configuration."
     display_message "--------------------------------------------------------------------"
     display_message "variant               : release"
     display_message "threading             : multi"
@@ -756,8 +756,8 @@ build_all()
     build_from_tarball $PNG_URL $PNG_ARCHIVE xz . $PARALLEL "$BUILD_PNG" "${PNG_OPTIONS[@]}" "$@"
     build_from_tarball $QRENCODE_URL $QRENCODE_ARCHIVE bzip2 . $PARALLEL "$BUILD_QRENCODE" "${QRENCODE_OPTIONS[@]}" "$@"
     build_from_tarball_boost $BOOST_URL $BOOST_ARCHIVE bzip2 . $PARALLEL "$BUILD_BOOST" "${BOOST_OPTIONS[@]}"
-    build_from_github libbitcoin secp256k1 version5 $PARALLEL ${SECP256K1_OPTIONS[@]} "$@"
-    build_from_travis libbitcoin libbitcoin master $PARALLEL ${BITCOIN_OPTIONS[@]} "$@"
+    build_from_github bitcoinvc secp256k1 version5 $PARALLEL ${SECP256K1_OPTIONS[@]} "$@"
+    build_from_travis bitcoinvc bitcoinvc master $PARALLEL ${BITCOIN_OPTIONS[@]} "$@"
 }
 
 

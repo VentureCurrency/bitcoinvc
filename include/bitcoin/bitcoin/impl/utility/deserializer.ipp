@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_DESERIALIZER_IPP
-#define LIBBITCOIN_DESERIALIZER_IPP
+#ifndef BITCOINVC_DESERIALIZER_IPP
+#define BITCOINVC_DESERIALIZER_IPP
 
 #include <algorithm>
 #include <cstddef>
@@ -29,7 +31,7 @@
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/utility/endian.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 // Since the end is not used just use begin.
 template <typename Iterator, bool CheckSafe>
@@ -412,6 +414,6 @@ deserializer<Iterator, false> make_unsafe_deserializer(const Iterator begin)
     return deserializer<Iterator, false>(begin);
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

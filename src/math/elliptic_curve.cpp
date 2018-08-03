@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,7 +33,7 @@
 #include "../math/external/lax_der_parsing.h"
 #include "secp256k1_initializer.hpp"
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 using namespace boost;
 
@@ -440,4 +442,4 @@ bool recover_public(ec_uncompressed& out,
     return recover_public(context, out, recoverable, hash);
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

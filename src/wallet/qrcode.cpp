@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,7 +32,7 @@
 
 #ifdef WITH_QRENCODE
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 data_chunk qr::encode(const data_chunk& data)
@@ -90,6 +92,6 @@ bool qr::encode(std::istream& in, uint32_t version, error_recovery_level level,
 }
 
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif // WITH_QRENCODE

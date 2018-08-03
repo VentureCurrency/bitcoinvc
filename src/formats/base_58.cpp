@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +23,7 @@
 #include <boost/algorithm/string.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 const std::string base58_chars =
     "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
@@ -193,4 +195,4 @@ bool decode_base58_private(uint8_t* out, size_t out_size, const char* in)
     return true;
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_STEALTH_HPP
-#define LIBBITCOIN_STEALTH_HPP
+#ifndef BITCOINVC_STEALTH_HPP
+#define BITCOINVC_STEALTH_HPP
 
 #include <cstdint>
 #include <bitcoin/bitcoin/chain/script.hpp>
@@ -26,7 +28,7 @@
 #include <bitcoin/bitcoin/math/elliptic_curve.hpp>
 #include <bitcoin/bitcoin/utility/binary.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /// Determine if the script is a null-data script of at least 32 data bytes.
 BC_API bool is_stealth_script(const chain::script& script);
@@ -71,6 +73,6 @@ BC_API bool uncover_stealth(ec_secret& out_stealth,
     const ec_compressed& ephemeral_or_scan, const ec_secret& scan_or_ephemeral,
     const ec_secret& spend);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_WALLET_PAYMENT_ADDRESS_HPP
-#define LIBBITCOIN_WALLET_PAYMENT_ADDRESS_HPP
+#ifndef BITCOINVC_WALLET_PAYMENT_ADDRESS_HPP
+#define BITCOINVC_WALLET_PAYMENT_ADDRESS_HPP
 
 #include <algorithm>
 #include <iostream>
@@ -35,7 +37,7 @@
 #include <bitcoin/bitcoin/wallet/ec_private.hpp>
 #include <bitcoin/bitcoin/wallet/ec_public.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 static BC_CONSTEXPR size_t payment_size = 1u + short_hash_size + checksum_size;
@@ -125,7 +127,7 @@ struct BC_API wrapped_data
 };
 
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 // Allow payment_address to be in indexed in std::*map classes.
 namespace std

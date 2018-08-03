@@ -15,8 +15,8 @@
 
 // Modification of boost implementation to alter log file rotation naming.
 
-#ifndef LIBBITCOIN_LOG_FILE_COLLECTOR_HPP
-#define LIBBITCOIN_LOG_FILE_COLLECTOR_HPP
+#ifndef BITCOINVC_LOG_FILE_COLLECTOR_HPP
+#define BITCOINVC_LOG_FILE_COLLECTOR_HPP
 
 #include <ctime>
 #include <list>
@@ -37,7 +37,7 @@
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/log/file_counter_formatter.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 // modified from class extracted from boost/log/sinks/text_file_backend.*pp
@@ -134,6 +134,6 @@ private:
 };
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

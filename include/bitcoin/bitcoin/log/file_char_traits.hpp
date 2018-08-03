@@ -15,14 +15,14 @@
 
 // Modification of boost implementation to alter log file rotation naming.
 
-#ifndef LIBBITCOIN_LOG_FILE_CHAR_TRAITS_HPP
-#define LIBBITCOIN_LOG_FILE_CHAR_TRAITS_HPP
+#ifndef BITCOINVC_LOG_FILE_CHAR_TRAITS_HPP
+#define BITCOINVC_LOG_FILE_CHAR_TRAITS_HPP
 
 #include <cctype>
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 // modified from class extracted from boost/log/sinks/text_file_backend.*pp
@@ -63,6 +63,6 @@ struct BC_API file_char_traits
 };
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

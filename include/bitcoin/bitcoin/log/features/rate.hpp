@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_LOG_FEATURES_RATE_HPP
-#define LIBBITCOIN_LOG_FEATURES_RATE_HPP
+#ifndef BITCOINVC_LOG_FEATURES_RATE_HPP
+#define BITCOINVC_LOG_FEATURES_RATE_HPP
 
 #include <boost/log/sources/features.hpp>
 #include <boost/log/sources/threading_models.hpp>
 #include <boost/log/utility/strictest_lock.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 namespace attributes {
@@ -87,7 +89,7 @@ BOOST_PARAMETER_KEYWORD(tag, rate)
 } // namespace keywords
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <bitcoin/bitcoin/impl/log/features/rate.ipp>
 

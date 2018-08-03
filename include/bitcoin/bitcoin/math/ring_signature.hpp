@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2018 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2018 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_RING_SIGNATURE_HPP
-#define LIBBITCOIN_RING_SIGNATURE_HPP
+#ifndef BITCOINVC_RING_SIGNATURE_HPP
+#define BITCOINVC_RING_SIGNATURE_HPP
 
 #include <vector>
 #include <bitcoin/bitcoin/define.hpp>
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/math/hash.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * key_rings is a collection of rings of public keys.
@@ -84,7 +86,7 @@ BC_API bool sign(ring_signature& out, const secret_list& secrets,
 BC_API bool verify(const key_rings& rings, const hash_digest& digest,
     const ring_signature& signature);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
 

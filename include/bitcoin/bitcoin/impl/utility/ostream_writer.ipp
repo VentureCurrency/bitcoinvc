@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,13 +18,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_OSTREAM_WRITER_IPP
-#define LIBBITCOIN_OSTREAM_WRITER_IPP
+#ifndef BITCOINVC_OSTREAM_WRITER_IPP
+#define BITCOINVC_OSTREAM_WRITER_IPP
 
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include <bitcoin/bitcoin/utility/endian.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 template <unsigned Size>
 void ostream_writer::write_forward(const byte_array<Size>& value)
@@ -53,6 +55,6 @@ void ostream_writer::write_little_endian(Integer value)
     write_forward<sizeof(Integer)>(bytes);
 }
 
-} // libbitcoin
+} // bitcoinvc
 
 #endif

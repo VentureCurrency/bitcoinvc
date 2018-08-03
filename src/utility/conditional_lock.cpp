@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +23,7 @@
 #include <memory>
 #include <bitcoin/bitcoin/utility/thread.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 conditional_lock::conditional_lock(bool lock)
   : conditional_lock(lock ? std::make_shared<shared_mutex>() : nullptr)
@@ -41,4 +43,4 @@ conditional_lock::~conditional_lock()
         mutex_ptr_->unlock();
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

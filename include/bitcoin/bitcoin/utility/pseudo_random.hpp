@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_PSEUDO_RANDOM_HPP
-#define LIBBITCOIN_PSEUDO_RANDOM_HPP
+#ifndef BITCOINVC_PSEUDO_RANDOM_HPP
+#define BITCOINVC_PSEUDO_RANDOM_HPP
 
 #include <random>
 #include <cstdint>
@@ -26,7 +28,7 @@
 #include <bitcoin/bitcoin/utility/asio.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 class BC_API pseudo_random
 {
@@ -115,6 +117,6 @@ BC_API void pseudo_random_fill(data_chunk& out);
 BC_API asio::duration pseudo_randomize(const asio::duration& maximum,
     uint8_t ratio=2);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

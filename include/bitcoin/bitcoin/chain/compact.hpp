@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+￼ * This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_CHAIN_COMPACT_HPP
-#define LIBBITCOIN_CHAIN_COMPACT_HPP
+#ifndef BITCOINVC_CHAIN_COMPACT_HPP
+#define BITCOINVC_CHAIN_COMPACT_HPP
 
 #include <cstdint>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/math/hash.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace chain {
 
 /// A signed but zero-floored scientific notation in 32 bits.
@@ -63,6 +65,6 @@ private:
 };
 
 } // namespace chain
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

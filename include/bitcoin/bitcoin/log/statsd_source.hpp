@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_LOG_STATSD_SOURCE_HPP
-#define LIBBITCOIN_LOG_STATSD_SOURCE_HPP
+#ifndef BITCOINVC_LOG_STATSD_SOURCE_HPP
+#define BITCOINVC_LOG_STATSD_SOURCE_HPP
 
 #include <chrono>
 #include <boost/log/sources/basic_logger.hpp>
@@ -31,7 +33,7 @@
 #include <bitcoin/bitcoin/log/features/rate.hpp>
 #include <bitcoin/bitcoin/log/features/timer.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 class BC_API statsd_source
@@ -73,6 +75,6 @@ BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(stats, statsd_source)
     BC_STATS_WITH_RATE(name, rate, (bc::log::keywords::timer = (value)))
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

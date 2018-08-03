@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
+ ￼*
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,15 +18,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_BASE_10_HPP
-#define LIBBITCOIN_BASE_10_HPP
+#ifndef BITCOINVC_BASE_10_HPP
+#define BITCOINVC_BASE_10_HPP
 
 #include <cstdint>
 #include <string>
 #include <bitcoin/bitcoin/compat.hpp>
 #include <bitcoin/bitcoin/define.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 BC_CONSTEXPR uint8_t btc_decimal_places = 8;
 BC_CONSTEXPR uint8_t mbtc_decimal_places = 5;
@@ -54,7 +56,7 @@ BC_API std::string encode_base10(uint64_t amount,
 BC_API bool btc_to_satoshi(uint64_t& satoshi, const std::string& btc);
 BC_API std::string satoshi_to_btc(uint64_t satoshi);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
 

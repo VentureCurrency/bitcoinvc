@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,7 +28,7 @@ BOOST_AUTO_TEST_SUITE(uri_tests)
 
 BOOST_AUTO_TEST_CASE(uri__parse__http_roundtrip__test)
 {
-    const auto test = "http://github.com/libbitcoin?good=true#nice";
+    const auto test = "http://github.com/bitcoinvc?good=true#nice";
     uri parsed;
     BOOST_REQUIRE(parsed.decode(test));
 
@@ -36,7 +38,7 @@ BOOST_AUTO_TEST_CASE(uri__parse__http_roundtrip__test)
 
     BOOST_REQUIRE_EQUAL(parsed.scheme(), "http");
     BOOST_REQUIRE_EQUAL(parsed.authority(), "github.com");
-    BOOST_REQUIRE_EQUAL(parsed.path(), "/libbitcoin");
+    BOOST_REQUIRE_EQUAL(parsed.path(), "/bitcoinvc");
     BOOST_REQUIRE_EQUAL(parsed.query(), "good=true");
     BOOST_REQUIRE_EQUAL(parsed.fragment(), "nice");
 

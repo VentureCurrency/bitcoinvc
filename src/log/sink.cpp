@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,7 +35,7 @@
 #include <bitcoin/bitcoin/log/severity.hpp>
 #include <bitcoin/bitcoin/unicode/ofstream.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 using namespace boost::log;
@@ -205,4 +207,4 @@ void initialize(const rotable_file& debug_file, const rotable_file& error_file,
 }
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc

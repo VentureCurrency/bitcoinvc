@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2018 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2018 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_BASE_32_HPP
-#define LIBBITCOIN_BASE_32_HPP
+#ifndef BITCOINVC_BASE_32_HPP
+#define BITCOINVC_BASE_32_HPP
 
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * TODO: implement as config class, see wrapped_data.
@@ -47,7 +49,7 @@ BC_API std::string encode_base32(const base32& unencoded);
  */
 BC_API bool decode_base32(base32& out, const std::string& in);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
 

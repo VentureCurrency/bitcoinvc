@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +26,7 @@
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include "../math/external/aes256.h"
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 void aes256_encrypt(const aes_secret& key, aes_block& block)
 {
@@ -42,4 +44,4 @@ void aes256_decrypt(const aes_secret& key, aes_block& block)
     aes256_done(&context);
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

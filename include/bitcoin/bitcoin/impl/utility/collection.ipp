@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_COLLECTION_IPP
-#define LIBBITCOIN_COLLECTION_IPP
+#ifndef BITCOINVC_COLLECTION_IPP
+#define BITCOINVC_COLLECTION_IPP
 
 #include <algorithm>
 #include <iterator>
@@ -29,7 +31,7 @@
 #include <bitcoin/bitcoin/constants.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 template <typename Source, typename Target>
 std::vector<Target> cast(const std::vector<Source>& source)
@@ -113,7 +115,7 @@ Element pop(std::vector<Element>& stack)
 ////    return out;
 ////}
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 namespace std {
 

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +22,7 @@
 
 #include <cstdint>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace machine {
 
 const uint8_t number::negative_1 = negative_mask | positive_1;
@@ -45,4 +47,4 @@ const uint8_t number::positive_16 = 16;
 const uint8_t number::negative_mask = 0x80;
 
 } // namespace machine
-} // namespace libbitcoin
+} // namespace bitcoinvc

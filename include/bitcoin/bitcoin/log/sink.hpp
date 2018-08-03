@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_LOG_SINK_HPP
-#define LIBBITCOIN_LOG_SINK_HPP
+#ifndef BITCOINVC_LOG_SINK_HPP
+#define BITCOINVC_LOG_SINK_HPP
 
 #include <iostream>
 #include <boost/smart_ptr.hpp>
@@ -26,7 +28,7 @@
 #include <bitcoin/bitcoin/log/severity.hpp>
 #include <bitcoin/bitcoin/unicode/ofstream.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 typedef boost::shared_ptr<bc::ofstream> file;
@@ -34,11 +36,11 @@ typedef boost::shared_ptr<bc::ofstream> file;
 /// Initializes null (as opposed to default) logging sinks.
 void initialize();
 
-/// Initializes default non-rotable libbitcoin logging sinks and formats.
+/// Initializes default non-rotable bitcoinvc logging sinks and formats.
 void initialize(log::file& debug_file, log::file& error_file,
     log::stream& output_stream, log::stream& error_stream, bool verbose);
 
-/// Initializes default rotable libbitcoin logging sinks and formats.
+/// Initializes default rotable bitcoinvc logging sinks and formats.
 void initialize(const rotable_file& debug_file, const rotable_file& error_file,
     log::stream& output_stream, log::stream& error_stream, bool verbose);
 
@@ -46,6 +48,6 @@ void initialize(const rotable_file& debug_file, const rotable_file& error_file,
 formatter& operator<<(formatter& stream, severity value);
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

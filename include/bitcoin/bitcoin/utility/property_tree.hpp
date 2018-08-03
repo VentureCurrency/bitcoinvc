@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_PROPERTY_TREE_HPP
-#define LIBBITCOIN_PROPERTY_TREE_HPP
+#ifndef BITCOINVC_PROPERTY_TREE_HPP
+#define BITCOINVC_PROPERTY_TREE_HPP
 
 #include <map>
 #include <string>
@@ -32,7 +34,7 @@
 
 namespace pt = boost::property_tree;
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 class base2;
 class wrapper;
@@ -238,7 +240,7 @@ BC_API pt::ptree property_tree(uint64_t height, uint32_t sequence);
  */
 BC_API bool property_tree(pt::ptree& out, const std::string& json);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <bitcoin/bitcoin/impl/utility/property_tree.ipp>
 

@@ -1,39 +1,39 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup Label="Globals">
-    <_PropertySheetDisplayName>Libbitcoin Import Settings</_PropertySheetDisplayName>
+    <_PropertySheetDisplayName>BitcoinVC Import Settings</_PropertySheetDisplayName>
   </PropertyGroup>
 
   <!-- User Interface -->
 
   <ItemGroup Label="BuildOptionsExtension">
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)libbitcoin.import.xml" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)bitcoinvc.import.xml" />
   </ItemGroup>
 
   <!-- Linkage -->
 
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\libbitcoin\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\bitcoinvc\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <!-- can't define _SCL_SECURE_NO_WARNINGS when using boost, can produce redefined symbol error, use 4996 instead -->
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <!-- NOMINMAX enables use of std::min/max without conflict. -->
       <!-- WIN32_LEAN_AND_MEAN avoids boost conflict: lists.boost.org/boost-users/2008/07/37824.php. -->
       <PreprocessorDefinitions>WITH_ICU;WIN32_LEAN_AND_MEAN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Linkage-libbitcoin)' == 'static' Or '$(Linkage-libbitcoin)' == 'ltcg'">BC_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Linkage-bitcoinvc)' == 'static' Or '$(Linkage-bitcoinvc)' == 'ltcg'">BC_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies Condition="'$(Linkage-libbitcoin)' != ''">libbitcoin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Linkage-bitcoinvc)' != ''">bitcoinvc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link Condition="($(PlatformToolset) == 'v120') Or ($(PlatformToolset) == 'CTP_Nov2013')">
       <!-- $(PlatformToolset) is hard wired to CTP_Nov2013 to allow for linkage by PlatformToolset=v120 (and CTP_Nov2013) callers. -->
-      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Debug')) != -1">$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Debug\CTP_Nov2013\$(Linkage-libbitcoin)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Release')) != -1">$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Release\CTP_Nov2013\$(Linkage-libbitcoin)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Debug')) != -1">$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Debug\CTP_Nov2013\$(Linkage-bitcoinvc)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Release')) != -1">$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Release\CTP_Nov2013\$(Linkage-bitcoinvc)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Link Condition="($(PlatformToolset) != 'v120') And ($(PlatformToolset) != 'CTP_Nov2013')">
-      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Debug')) != -1">$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Debug\$(PlatformToolset)\$(Linkage-libbitcoin)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Release')) != -1">$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Release\$(PlatformToolset)\$(Linkage-libbitcoin)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Debug')) != -1">$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Debug\$(PlatformToolset)\$(Linkage-bitcoinvc)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="$(Configuration.IndexOf('Release')) != -1">$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Release\$(PlatformToolset)\$(Linkage-bitcoinvc)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Link Condition="$(PlatformToolset) == 'v120'">
       <!-- Need to link $(VC_CTP_Nov2013_LibraryPath_x86), $(VC_CTP_Nov2013_LibraryPath_x64), or $(VC_CTP_Nov2013_LibraryPath_ARM). -->
@@ -46,43 +46,43 @@
   <!-- Copy -->
 
   <!-- $(PlatformToolset) is hard wired to CTP_Nov2013 to allow for linkage by PlatformToolset=v120 (and CTP_Nov2013) callers. -->
-  <Target Name="Linkage-libbitcoin-dynamic" AfterTargets="AfterBuild" Condition="('$(Linkage-libbitcoin)' == 'dynamic') And (($(PlatformToolset) == 'v120') Or ($(PlatformToolset) == 'CTP_Nov2013'))">
+  <Target Name="Linkage-bitcoinvc-dynamic" AfterTargets="AfterBuild" Condition="('$(Linkage-bitcoinvc)' == 'dynamic') And (($(PlatformToolset) == 'v120') Or ($(PlatformToolset) == 'CTP_Nov2013'))">
     <Copy Condition="$(Configuration.IndexOf('Debug')) != -1"
-          SourceFiles="$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Debug\CTP_Nov2013\dynamic\libbitcoin.dll"
-          DestinationFiles="$(TargetDir)libbitcoin.dll"
+          SourceFiles="$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Debug\CTP_Nov2013\dynamic\bitcoinvc.dll"
+          DestinationFiles="$(TargetDir)bitcoinvc.dll"
           SkipUnchangedFiles="true" />
     <Copy Condition="$(Configuration.IndexOf('Debug')) != -1"
-          SourceFiles="$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Debug\CTP_Nov2013\dynamic\libbitcoin.pdb"
-          DestinationFiles="$(TargetDir)libbitcoin.pdb"
+          SourceFiles="$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Debug\CTP_Nov2013\dynamic\bitcoinvc.pdb"
+          DestinationFiles="$(TargetDir)bitcoinvc.pdb"
           SkipUnchangedFiles="true" />
     <Copy Condition="$(Configuration.IndexOf('Release')) != -1"
-          SourceFiles="$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Release\CTP_Nov2013\dynamic\libbitcoin.dll"
-          DestinationFiles="$(TargetDir)libbitcoin.dll"
+          SourceFiles="$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Release\CTP_Nov2013\dynamic\bitcoinvc.dll"
+          DestinationFiles="$(TargetDir)bitcoinvc.dll"
           SkipUnchangedFiles="true" />
   </Target>
-  <Target Name="Linkage-libbitcoin-dynamic" AfterTargets="AfterBuild" Condition="('$(Linkage-libbitcoin)' == 'dynamic') And (($(PlatformToolset) != 'v120') And ($(PlatformToolset) != 'CTP_Nov2013'))">
+  <Target Name="Linkage-bitcoinvc-dynamic" AfterTargets="AfterBuild" Condition="('$(Linkage-bitcoinvc)' == 'dynamic') And (($(PlatformToolset) != 'v120') And ($(PlatformToolset) != 'CTP_Nov2013'))">
     <Copy Condition="$(Configuration.IndexOf('Debug')) != -1"
-          SourceFiles="$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Debug\$(PlatformToolset)\dynamic\libbitcoin.dll"
-          DestinationFiles="$(TargetDir)libbitcoin.dll"
+          SourceFiles="$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Debug\$(PlatformToolset)\dynamic\bitcoinvc.dll"
+          DestinationFiles="$(TargetDir)bitcoinvc.dll"
           SkipUnchangedFiles="true" />
     <Copy Condition="$(Configuration.IndexOf('Debug')) != -1"
-          SourceFiles="$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Debug\$(PlatformToolset)\dynamic\libbitcoin.pdb"
-          DestinationFiles="$(TargetDir)libbitcoin.pdb"
+          SourceFiles="$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Debug\$(PlatformToolset)\dynamic\bitcoinvc.pdb"
+          DestinationFiles="$(TargetDir)bitcoinvc.pdb"
           SkipUnchangedFiles="true" />
     <Copy Condition="$(Configuration.IndexOf('Release')) != -1"
-          SourceFiles="$(ProjectDir)..\..\..\..\..\libbitcoin\bin\$(PlatformName)\Release\$(PlatformToolset)\dynamic\libbitcoin.dll"
-          DestinationFiles="$(TargetDir)libbitcoin.dll"
+          SourceFiles="$(ProjectDir)..\..\..\..\..\bitcoinvc\bin\$(PlatformName)\Release\$(PlatformToolset)\dynamic\bitcoinvc.dll"
+          DestinationFiles="$(TargetDir)bitcoinvc.dll"
           SkipUnchangedFiles="true" />
   </Target>
 
   <!-- Messages -->
 
-  <Target Name="libbitcoin-option-info" BeforeTargets="PrepareForBuild">
+  <Target Name="bitcoinvc-option-info" BeforeTargets="PrepareForBuild">
   </Target>
 
-  <Target Name="libbitcoin-info" BeforeTargets="AfterBuild" Condition="'$(Linkage-libbitcoin)' == 'dynamic'">
-    <Message Text="Copying libbitcoin.dll -&gt; $(TargetDir)libbitcoin.dll" Importance="high"/>
-    <Message Text="Copying libbitcoin.pdb -&gt; $(TargetDir)libbitcoin.pdb" Importance="high" Condition="$(Configuration.IndexOf('Debug')) != -1" />
+  <Target Name="bitcoinvc-info" BeforeTargets="AfterBuild" Condition="'$(Linkage-bitcoinvc)' == 'dynamic'">
+    <Message Text="Copying bitcoinvc.dll -&gt; $(TargetDir)bitcoinvc.dll" Importance="high"/>
+    <Message Text="Copying bitcoinvc.pdb -&gt; $(TargetDir)bitcoinvc.pdb" Importance="high" Condition="$(Configuration.IndexOf('Debug')) != -1" />
   </Target>
 
 </Project>

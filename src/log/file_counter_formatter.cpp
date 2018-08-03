@@ -18,7 +18,7 @@
 #include <bitcoin/bitcoin/log/file_counter_formatter.hpp>
 #include <bitcoin/bitcoin/log/file_char_traits.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 file_counter_formatter::file_counter_formatter(unsigned int width)
@@ -64,4 +64,4 @@ bool file_counter_formatter::scan_seperator(path_string_type::const_iterator& it
 }
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc

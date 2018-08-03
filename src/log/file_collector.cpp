@@ -26,7 +26,7 @@
 #include <bitcoin/bitcoin/log/file_char_traits.hpp>
 #include <bitcoin/bitcoin/log/file_collector_repository.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 namespace filesystem = boost::filesystem;
@@ -466,4 +466,4 @@ path_string_type file_collector::filename_string(
 }
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc

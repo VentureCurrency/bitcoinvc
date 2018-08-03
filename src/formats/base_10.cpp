@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +25,7 @@
 #include <boost/algorithm/string.hpp>
 #include <bitcoin/bitcoin/constants.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * Returns true if a character is one of `[0-9]`.
@@ -109,4 +111,4 @@ std::string satoshi_to_btc(uint64_t satoshi)
     return encode_base10(satoshi, btc_decimal_places);
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_STRING_HPP
-#define LIBBITCOIN_STRING_HPP
+#ifndef BITCOINVC_STRING_HPP
+#define BITCOINVC_STRING_HPP
 
 #include <string>
 #include <vector>
@@ -26,7 +28,7 @@
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/lexical_cast.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 typedef std::vector<std::string> string_list;
 
@@ -91,7 +93,7 @@ BC_API std::string join(const string_list& words,
 BC_API string_list split(const std::string& sentence,
     const std::string& delimiter=" ", bool trim=true);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <bitcoin/bitcoin/impl/utility/string.ipp>
 

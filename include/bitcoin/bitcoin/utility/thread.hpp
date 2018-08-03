@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_THREAD_HPP
-#define LIBBITCOIN_THREAD_HPP
+#ifndef BITCOINVC_THREAD_HPP
+#define BITCOINVC_THREAD_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -25,7 +27,7 @@
 #include <boost/thread.hpp>
 #include <bitcoin/bitcoin/define.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 ////// Adapted from: stackoverflow.com/a/18298965/1172329
 ////#ifndef thread_local
@@ -63,6 +65,6 @@ BC_API size_t thread_default(size_t configured);
 BC_API size_t thread_ceiling(size_t configured);
 BC_API size_t thread_floor(size_t configured);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

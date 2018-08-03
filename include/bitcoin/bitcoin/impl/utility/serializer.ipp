@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_SERIALIZER_IPP
-#define LIBBITCOIN_SERIALIZER_IPP
+#ifndef BITCOINVC_SERIALIZER_IPP
+#define BITCOINVC_SERIALIZER_IPP
 
 #include <algorithm>
 #include <cstddef>
@@ -27,7 +29,7 @@
 #include <bitcoin/bitcoin/math/limits.hpp>
 #include <bitcoin/bitcoin/utility/endian.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 template <typename Iterator>
 serializer<Iterator>::serializer(const Iterator begin)
@@ -332,6 +334,6 @@ serializer<Iterator> make_unsafe_serializer(Iterator begin)
     return serializer<Iterator>(begin);
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

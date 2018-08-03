@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,12 +18,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_ENDIAN_IPP
-#define LIBBITCOIN_ENDIAN_IPP
+#ifndef BITCOINVC_ENDIAN_IPP
+#define BITCOINVC_ENDIAN_IPP
 
 #include <type_traits>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 #define VERIFY_UNSIGNED(T) static_assert(std::is_unsigned<T>::value, \
     "The endian functions only work on unsigned types")
@@ -143,7 +145,7 @@ byte_array<sizeof(Integer)> to_little_endian(Integer value)
 
 #undef VERIFY_UNSIGNED
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
 

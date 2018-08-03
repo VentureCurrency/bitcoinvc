@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,12 +18,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_DECORATOR_HPP
-#define LIBBITCOIN_DECORATOR_HPP
+#ifndef BITCOINVC_DECORATOR_HPP
+#define BITCOINVC_DECORATOR_HPP
 
 #include <functional>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * Defines a function decorator ala Python
@@ -54,7 +56,7 @@ decorator(Wrapper&& wrapper, Handler&& handler)
     return { wrapper, handler };
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
 

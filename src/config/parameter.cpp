@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,7 +28,7 @@
 #include <bitcoin/bitcoin/utility/string.hpp>
 
 namespace po = boost::program_options;
-using namespace libbitcoin::config;
+using namespace bitcoinvc::config;
 
 const int parameter::not_positional = -1;
 const char parameter::no_short_name = 0x00;
@@ -62,7 +64,7 @@ char parameter::short_name(const po::option_description& option) const
     //auto name = option.canonical_display_name(
     //    search_options::dashed_short_prefer_short);
 
-    // This is a substitute that allows us to use boost 1.49 for libbitcoin.
+    // This is a substitute that allows us to use boost 1.49 for bitcoinvc.
     const auto name = split(option.format_name()).front();
     auto is_short_name = name[0] == option_prefix_char &&
         name[1] != option_prefix_char;

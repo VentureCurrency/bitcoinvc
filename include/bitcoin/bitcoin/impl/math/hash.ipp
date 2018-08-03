@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_HASH_IPP
-#define LIBBITCOIN_HASH_IPP
+#ifndef BITCOINVC_HASH_IPP
+#define BITCOINVC_HASH_IPP
 
 #include <algorithm>
 #include <cstddef>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 template<size_t Size>
 byte_array<Size> scrypt(data_slice data, data_slice salt, uint64_t N,
@@ -33,6 +35,6 @@ byte_array<Size> scrypt(data_slice data, data_slice salt, uint64_t N,
     return to_array<Size>({ out });
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

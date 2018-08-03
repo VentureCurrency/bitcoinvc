@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_DEADLINE_HPP
-#define LIBBITCOIN_DEADLINE_HPP
+#ifndef BITCOINVC_DEADLINE_HPP
+#define BITCOINVC_DEADLINE_HPP
 
 #include <memory>
 #include <bitcoin/bitcoin/define.hpp>
@@ -30,7 +32,7 @@
 #include <bitcoin/bitcoin/utility/threadpool.hpp>
 ////#include <bitcoin/bitcoin/utility/track.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * Class wrapper for boost::asio::deadline_timer, thread safe.
@@ -89,6 +91,6 @@ private:
     mutable shared_mutex mutex_;
 };
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

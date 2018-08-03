@@ -12,13 +12,14 @@ All files in this repository fall under the license specified in [COPYING](COPYI
 
 **About BitcoinVC**
 
-The BitcoinVC toolkit is a fork of libbitcoin, a set of cross platform C++ libraries for building bitcoin applications, customized to work with the BitcoinVC Blockchain. The toolkit consists of several libraries, most of which depend on the foundational [bitcoinvc](https://github.com/VentureCurrency/bitcoinvc) library. Each library's repository can be cloned and built using common [automake](http://www.gnu.org/software/automake) 1.14+ instructions. There are no packages yet in distribution however each library includes an installation script (described below) which is regularly verified in the automated build.
+The BitcoinVC toolkit is a fork of bitcoinvc, a set of cross platform C++ libraries for building bitcoin applications, customized to work with the BitcoinVC Blockchain. The toolkit consists of several libraries, most of which depend on the foundational [bitcoinvc](https://github.com/VentureCurrency/bitcoinvc) library. Each library's repository can be cloned and built using common [automake](http://www.gnu.org/software/automake) 1.14+ instructions. There are no packages yet in distribution however each library includes an installation script (described below) which is regularly verified in the automated build.
 
 ## Installation
 
 Clone the source code repository and checkout RELEASE BVC1
 
-```git clone https://github.com/VentureCurrency/bitcoinvc
+```
+git clone https://github.com/VentureCurrency/bitcoinvc
 git checkout BVC1
 ```
 

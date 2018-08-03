@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,15 +18,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_AES256_HPP
-#define LIBBITCOIN_AES256_HPP
+#ifndef BITCOINVC_AES256_HPP
+#define BITCOINVC_AES256_HPP
 
 #include <cstdint>
 #include <bitcoin/bitcoin/compat.hpp>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * The secret for aes256 block cypher.
@@ -48,7 +50,7 @@ BC_API void aes256_encrypt(const aes_secret& key, aes_block& block);
  */
 BC_API void aes256_decrypt(const aes_secret& key, aes_block& block);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
 

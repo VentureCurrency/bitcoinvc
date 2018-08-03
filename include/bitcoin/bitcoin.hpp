@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-//
+// Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 //        GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 //
 ///////////////////////////////////////////////////////////////////////////////
-#ifndef LIBBITCOIN_BITCOIN_HPP
-#define LIBBITCOIN_BITCOIN_HPP
+#ifndef BITCOINVC_BITCOIN_HPP
+#define BITCOINVC_BITCOIN_HPP
 
 /**
  * API Users: Include only this header. Direct use of other headers is fragile

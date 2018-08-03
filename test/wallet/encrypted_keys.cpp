@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -315,7 +317,7 @@ BOOST_AUTO_TEST_CASE(encrypted__decrypt_private__vector_8_multiplied__expected)
 {
     const uint8_t expected_version = 0x00;
     const auto key = base58_literal("6PfPAw5HErFdzMyBvGMwSfSWjKmzgm3jDg7RxQyVCSSBJFZLAZ6hVupmpn");
-    BC_REQUIRE_DECRYPT_SECRET(key, "libbitcoin test");
+    BC_REQUIRE_DECRYPT_SECRET(key, "bitcoinvc test");
     BOOST_REQUIRE_EQUAL(encode_base16(out_secret), "fb4bfb0bfe151d524b0b11983b9f826d6a0bc7f7bdc480864a1b557ff0c59eb4");
     BOOST_REQUIRE_EQUAL(out_version, expected_version);
     BOOST_REQUIRE(!out_is_compressed);
@@ -374,7 +376,7 @@ BOOST_AUTO_TEST_CASE(encrypted__decrypt_public__vector_8__expected)
 {
     const uint8_t version = 0x00;
     const auto key = base58_literal("cfrm38V5Nm1mn7GxPBAGTXawqXRwE1EbR19GqsvJ9JmF5VKLqi8nETmULpELkQvExCGkTNCH2An");
-    BC_REQUIRE_DECRYPT_POINT(key, "libbitcoin test", version);
+    BC_REQUIRE_DECRYPT_POINT(key, "bitcoinvc test", version);
     BOOST_REQUIRE_EQUAL(encode_base16(out_point), "02c13b65302bbbed4f7ad67bc68e928b58e7748d84091a2d42680dc52e7916079e");
     BOOST_REQUIRE_EQUAL(derived_address, "1NQgLnFz1ZzF6KkCJ4SM3xz3Jy1q2hEEax");
 }

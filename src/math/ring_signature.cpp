@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2018 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2018 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +29,7 @@
 #include <bitcoin/bitcoin/utility/serializer.hpp>
 #include <bitcoin/bitcoin/wallet/hd_private.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 typedef std::vector<uint32_t> index_list;
 typedef std::map<ec_compressed, ec_secret> secret_keys_map;
@@ -377,4 +379,4 @@ bool verify(const key_rings& rings, const hash_digest& digest,
     return e0_hash == signature.challenge;
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

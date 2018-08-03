@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,7 +31,7 @@
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include <bitcoin/bitcoin/utility/endian.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 using namespace bc::chain;
 using namespace bc::machine;
@@ -216,4 +218,4 @@ bool uncover_stealth(ec_secret& out_stealth,
     return true;
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

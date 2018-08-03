@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_ERROR_HPP
-#define LIBBITCOIN_ERROR_HPP
+#ifndef BITCOINVC_ERROR_HPP
+#define BITCOINVC_ERROR_HPP
 
 #include <string>
 #include <system_error>
@@ -25,7 +27,7 @@
 #include <boost/system/error_code.hpp>
 #include <bitcoin/bitcoin/define.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /// Console result codes, positive values are domain-specific.
 enum console_result : int
@@ -254,7 +256,7 @@ BC_API error_code_t boost_to_error_code(const boost_code& ec);
 BC_API error_code_t posix_to_error_code(int ec);
 
 } // namespace error
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 namespace std {
 

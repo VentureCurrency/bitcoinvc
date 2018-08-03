@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +25,7 @@
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/formats/base_16.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 // These character classification functions correspond to RFC 3986.
@@ -387,4 +389,4 @@ void uri::encode_query(const query_map& map)
 }
 
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc

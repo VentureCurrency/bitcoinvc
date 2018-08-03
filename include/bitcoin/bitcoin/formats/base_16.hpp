@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_BASE_16_HPP
-#define LIBBITCOIN_BASE_16_HPP
+#ifndef BITCOINVC_BASE_16_HPP
+#define BITCOINVC_BASE_16_HPP
 
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/math/hash.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * Returns true if a character is a hexadecimal digit.
@@ -77,7 +79,7 @@ BC_API bool decode_hash(hash_digest& out, const std::string& in);
  */
 BC_API hash_digest hash_literal(const char (&string)[2 * hash_size + 1]);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <bitcoin/bitcoin/impl/formats/base_16.ipp>
 

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +25,7 @@
 #include <bitcoin/bitcoin/math/elliptic_curve.hpp>
 #include <bitcoin/bitcoin/math/hash.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 bool check_minikey(const std::string& minikey)
@@ -43,4 +45,4 @@ bool minikey_to_secret(ec_secret& out_secret, const std::string& key)
 }
 
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc

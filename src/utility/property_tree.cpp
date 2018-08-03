@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +40,7 @@
 #include <bitcoin/bitcoin/utility/collection.hpp>
 
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 using namespace pt;
 using namespace bc::config;
@@ -331,4 +333,4 @@ bool property_tree(ptree& out, const std::string& json)
     }
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

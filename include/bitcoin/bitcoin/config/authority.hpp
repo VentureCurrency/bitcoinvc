@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+￼ * This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_CONFIG_AUTHORITY_HPP
-#define LIBBITCOIN_CONFIG_AUTHORITY_HPP
+#ifndef BITCOINVC_CONFIG_AUTHORITY_HPP
+#define BITCOINVC_CONFIG_AUTHORITY_HPP
 
 #include <cstdint>
 #include <iostream>
@@ -27,7 +29,7 @@
 #include <bitcoin/bitcoin/message/network_address.hpp>
 #include <bitcoin/bitcoin/utility/asio.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace config {
 
 /**
@@ -180,6 +182,6 @@ private:
 };
 
 } // namespace config
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

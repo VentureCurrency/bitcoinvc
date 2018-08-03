@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/wallet/encrypted_keys.hpp>
 #include "parse_encrypted_prefix.hpp"
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 // This prefix results in the prefix "passphrase" in the base58 encoding.
@@ -83,4 +85,4 @@ bool parse_encrypted_token::verify_magic() const
 }
 
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc

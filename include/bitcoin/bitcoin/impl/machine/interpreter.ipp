@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_MACHINE_INTERPRETER_IPP
-#define LIBBITCOIN_MACHINE_INTERPRETER_IPP
+#ifndef BITCOINVC_MACHINE_INTERPRETER_IPP
+#define BITCOINVC_MACHINE_INTERPRETER_IPP
 
 #include <cstdint>
 #include <utility>
@@ -33,7 +35,7 @@
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace machine {
 
 static BC_CONSTEXPR auto op_75 = static_cast<uint8_t>(opcode::push_size_75);
@@ -1263,6 +1265,6 @@ inline interpreter::result interpreter::run_op(const operation& op,
 }
 
 } // namespace machine
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

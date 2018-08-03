@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_DATA_HPP
-#define LIBBITCOIN_DATA_HPP
+#ifndef BITCOINVC_DATA_HPP
+#define BITCOINVC_DATA_HPP
 
 #include <array>
 #include <cstddef>
@@ -29,7 +31,7 @@
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/utility/array_slice.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 // Define a byte array of a specified length.
 template <size_t Size>
@@ -151,7 +153,7 @@ template <size_t Size>
 byte_array<Size> xor_data(data_slice bytes1, data_slice bytes2, size_t offset1,
     size_t offset2);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <bitcoin/bitcoin/impl/utility/data.ipp>
 

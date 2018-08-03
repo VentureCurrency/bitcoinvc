@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_HASH_HPP
-#define LIBBITCOIN_HASH_HPP
+#ifndef BITCOINVC_HASH_HPP
+#define BITCOINVC_HASH_HPP
 
 #include <cstddef>
 #include <string>
@@ -29,7 +31,7 @@
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include <bitcoin/bitcoin/utility/endian.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 // Common bitcoin hash container sizes.
 static BC_CONSTEXPR size_t hash_size = 32;
@@ -156,7 +158,7 @@ BC_API long_hash hmac_sha512_hash(data_slice data, data_slice key);
 BC_API long_hash pkcs5_pbkdf2_hmac_sha512(data_slice passphrase,
     data_slice salt, size_t iterations);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 // Extend std and boost namespaces with our hash wrappers.
 //-----------------------------------------------------------------------------

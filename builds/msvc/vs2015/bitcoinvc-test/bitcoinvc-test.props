@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <_PropertySheetDisplayName>Libbitcoin Test Common Settings</_PropertySheetDisplayName>
+    <_PropertySheetDisplayName>BitcoinVC Test Common Settings</_PropertySheetDisplayName>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -33,7 +33,7 @@
   <!-- Dependencies -->
   
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(SolutionDir)libbitcoin.import.props" />
+    <Import Project="$(SolutionDir)bitcoinvc.import.props" />
   </ImportGroup>
 
   <PropertyGroup Condition="'$(NuGetPackageRoot)' == ''">
@@ -42,22 +42,22 @@
 
   <PropertyGroup Condition="'$(DefaultLinkage)' == 'dynamic'">
     <Linkage-secp256k1>dynamic</Linkage-secp256k1>
-    <Linkage-libbitcoin>dynamic</Linkage-libbitcoin>
+    <Linkage-bitcoinvc>dynamic</Linkage-bitcoinvc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(DefaultLinkage)' == 'ltcg'">
     <Linkage-secp256k1>ltcg</Linkage-secp256k1>
-    <Linkage-libbitcoin>ltcg</Linkage-libbitcoin>
+    <Linkage-bitcoinvc>ltcg</Linkage-bitcoinvc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(DefaultLinkage)' == 'static'">
     <Linkage-secp256k1>static</Linkage-secp256k1>
-    <Linkage-libbitcoin>static</Linkage-libbitcoin>
+    <Linkage-bitcoinvc>static</Linkage-bitcoinvc>
   </PropertyGroup>
 
   <!-- Messages -->
 
   <Target Name="LinkageInfo" BeforeTargets="PrepareForBuild">
     <Message Text="Linkage-secp256k1 : $(Linkage-secp256k1)" Importance="high"/>
-    <Message Text="Linkage-libbitcoin: $(Linkage-libbitcoin)" Importance="high"/>
+    <Message Text="Linkage-bitcoinvc: $(Linkage-bitcoinvc)" Importance="high"/>
     <!--<Message Text="Linkage-openssl   : $(Linkage-openssl)" Importance="high" Condition="'$(Option-datagen)' == 'true'"/>-->
   </Target>
   

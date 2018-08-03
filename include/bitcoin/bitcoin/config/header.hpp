@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_HEADER_HPP
-#define LIBBITCOIN_HEADER_HPP
+#ifndef BITCOINVC_HEADER_HPP
+#define BITCOINVC_HEADER_HPP
 
 #include <iostream>
 #include <string>
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/chain/header.hpp>
 #include <bitcoin/bitcoin/settings.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace config {
 
 /**
@@ -39,13 +41,13 @@ public:
     /**
      * Default constructor.
      */
-    header(const libbitcoin::settings& settings);
+    header(const bitcoinvc::settings& settings);
 
     /**
      * Initialization constructor.
      * @param[in]  hexcode  The value to initialize with.
      */
-    header(const std::string& hexcode, const libbitcoin::settings& settings);
+    header(const std::string& hexcode, const bitcoinvc::settings& settings);
 
     /**
      * Initialization constructor.
@@ -91,6 +93,6 @@ private:
 };
 
 } // namespace config
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

@@ -1,6 +1,6 @@
 ###############################################################################
 #  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-#
+#  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
 ###############################################################################
@@ -17,25 +17,25 @@ ACLOCAL_AMFLAGS = -I m4
 # files => ${pkgconfigdir}
 #------------------------------------------------------------------------------
 pkgconfig_DATA = \
-    libbitcoin.pc
+    bitcoinvc.pc
 
 # files => ${docdir}
 #------------------------------------------------------------------------------
 doc_DATA = \
-    AUTHORS \
+    COAUTHORS \
     COPYING \
     ChangeLog \
     INSTALL \
     NEWS \
     README
 
-# src/libbitcoin.la => ${libdir}
+# src/bitcoinvc.la => ${libdir}
 #------------------------------------------------------------------------------
-lib_LTLIBRARIES = src/libbitcoin.la
-src_libbitcoin_la_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
-src_libbitcoin_la_LDFLAGS = ${boost_LDFLAGS}
-src_libbitcoin_la_LIBADD = ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
-src_libbitcoin_la_SOURCES = \
+lib_LTLIBRARIES = src/bitcoinvc.la
+src_bitcoinvc_la_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
+src_bitcoinvc_la_LDFLAGS = ${boost_LDFLAGS}
+src_bitcoinvc_la_LIBADD = ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
+src_bitcoinvc_la_SOURCES = \
     src/error.cpp \
     src/settings.cpp \
     src/chain/block.cpp \
@@ -218,30 +218,30 @@ src_libbitcoin_la_SOURCES = \
     src/wallet/parse_encrypted_keys/parse_encrypted_token.cpp \
     src/wallet/parse_encrypted_keys/parse_encrypted_token.hpp
 
-# local: examples/libbitcoin-examples
+# local: examples/bitcoinvc-examples
 #------------------------------------------------------------------------------
 if WITH_EXAMPLES
 
-noinst_PROGRAMS = examples/libbitcoin-examples
-examples_libbitcoin_examples_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
-examples_libbitcoin_examples_LDFLAGS = ${boost_LDFLAGS}
-examples_libbitcoin_examples_LDADD = src/libbitcoin.la ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
-examples_libbitcoin_examples_SOURCES = \
+noinst_PROGRAMS = examples/bitcoinvc-examples
+examples_bitcoinvc_examples_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
+examples_bitcoinvc_examples_LDFLAGS = ${boost_LDFLAGS}
+examples_bitcoinvc_examples_LDADD = src/bitcoinvc.la ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
+examples_bitcoinvc_examples_SOURCES = \
     examples/main.cpp
 
 endif WITH_EXAMPLES
 
-# local: test/libbitcoin-test
+# local: test/bitcoinvc-test
 #------------------------------------------------------------------------------
 if WITH_TESTS
 
-TESTS = libbitcoin-test_runner.sh
+TESTS = bitcoinvc-test_runner.sh
 
-check_PROGRAMS = test/libbitcoin-test
-test_libbitcoin_test_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
-test_libbitcoin_test_LDFLAGS = ${boost_LDFLAGS}
-test_libbitcoin_test_LDADD = src/libbitcoin.la ${boost_unit_test_framework_LIBS} ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
-test_libbitcoin_test_SOURCES = \
+check_PROGRAMS = test/bitcoinvc-test
+test_bitcoinvc_test_CPPFLAGS = -I${srcdir}/include ${icu} ${png} ${qrencode} ${boost_BUILD_CPPFLAGS} ${pthread_BUILD_CPPFLAGS} ${icu_i18n_BUILD_CPPFLAGS} ${png_BUILD_CPPFLAGS} ${qrencode_BUILD_CPPFLAGS} ${secp256k1_BUILD_CPPFLAGS}
+test_bitcoinvc_test_LDFLAGS = ${boost_LDFLAGS}
+test_bitcoinvc_test_LDADD = src/bitcoinvc.la ${boost_unit_test_framework_LIBS} ${boost_chrono_LIBS} ${boost_date_time_LIBS} ${boost_filesystem_LIBS} ${boost_iostreams_LIBS} ${boost_locale_LIBS} ${boost_log_LIBS} ${boost_program_options_LIBS} ${boost_regex_LIBS} ${boost_system_LIBS} ${boost_thread_LIBS} ${pthread_LIBS} ${rt_LIBS} ${icu_i18n_LIBS} ${dl_LIBS} ${png_LIBS} ${qrencode_LIBS} ${secp256k1_LIBS}
+test_bitcoinvc_test_SOURCES = \
     test/main.cpp \
     test/settings.cpp \
     test/chain/block.cpp \
@@ -640,7 +640,7 @@ include_bitcoin_bitcoin_wallet_HEADERS = \
 # make target: examples
 #------------------------------------------------------------------------------
 target_examples = \
-    examples/libbitcoin-examples
+    examples/bitcoinvc-examples
 
 examples: ${target_examples}
 

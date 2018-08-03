@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -35,7 +37,7 @@
 #include <bitcoin/bitcoin/wallet/electrum_dictionary.hpp>
 #include "../math/external/pkcs5_pbkdf2.h"
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 namespace electrum {
 
@@ -228,4 +230,4 @@ long_hash decode_mnemonic(const word_list& mnemonic)
 
 } // namespace electrum
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc

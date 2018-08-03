@@ -1,7 +1,7 @@
 #!/bin/sh
 ###############################################################################
 #  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-#
+#  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
 ###############################################################################
@@ -18,4 +18,4 @@ BOOST_UNIT_TEST_OPTIONS=\
 
 # Run tests.
 #==============================================================================
-./test/libbitcoin-test ${BOOST_UNIT_TEST_OPTIONS} > test.log
+./test/bitcoinvc-test ${BOOST_UNIT_TEST_OPTIONS} > test.log

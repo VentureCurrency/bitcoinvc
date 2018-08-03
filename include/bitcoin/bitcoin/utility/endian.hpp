@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_ENDIAN_HPP
-#define LIBBITCOIN_ENDIAN_HPP
+#ifndef BITCOINVC_ENDIAN_HPP
+#define BITCOINVC_ENDIAN_HPP
 
 #include <istream>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 template <typename Integer, typename Iterator>
 Integer from_big_endian(Iterator start, Iterator end);
@@ -49,7 +51,7 @@ byte_array<sizeof(Integer)> to_big_endian(Integer value);
 template <typename Integer>
 byte_array<sizeof(Integer)> to_little_endian(Integer value);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <bitcoin/bitcoin/impl/utility/endian.ipp>
 

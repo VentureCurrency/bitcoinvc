@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +26,7 @@
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/chain/points_value.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 using namespace bc::chain;
@@ -131,4 +133,4 @@ void select_outputs::select(points_value& out, const points_value& unspent,
 }
 
 } // namspace wallet
-} // namspace libbitcoin
+} // namspace bitcoinvc

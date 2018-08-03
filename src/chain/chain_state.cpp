@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +38,7 @@
 #include <bitcoin/bitcoin/unicode/unicode.hpp>
 #include <bitcoin/bitcoin/utility/timer.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace chain {
 
 using namespace bc::config;
@@ -779,4 +781,4 @@ bool chain_state::is_under_checkpoint() const
 }
 
 } // namespace chain
-} // namespace libbitcoin
+} // namespace bitcoinvc

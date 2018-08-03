@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,7 +28,7 @@
     #include <windows.h>
 #endif
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace config {
 
 // Returns empty string if unable to retrieve (including when not in Windows).
@@ -44,4 +46,4 @@ std::string windows_config_directory()
 }
 
 } // namespace config
-} // namespace libbitcoin
+} // namespace bitcoinvc

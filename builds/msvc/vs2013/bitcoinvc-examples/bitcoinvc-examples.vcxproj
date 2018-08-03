@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
  |  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
- |
+ |  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
  |         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
  |
  -->
@@ -10,7 +10,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <ProjectGuid>{B726DF7D-6D1D-48FB-AC02-34EB45F9145E}</ProjectGuid>
-    <ProjectName>libbitcoin-examples</ProjectName>
+    <ProjectName>bitcoinvc-examples</ProjectName>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugDEXE|Win32">
@@ -119,7 +119,7 @@
     <Error Condition="!Exists('$(NuGetPackageRoot)secp256k1_vc120.0.1.0.16\build\native\secp256k1_vc120.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(NuGetPackageRoot)secp256k1_vc120.0.1.0.16\build\native\secp256k1_vc120.targets'))" />
   </Target>
   <ItemGroup>
-    <ProjectReference Include="..\libbitcoin\libbitcoin.vcxproj">
+    <ProjectReference Include="..\bitcoinvc\bitcoinvc.vcxproj">
       <Project>{39F60708-FF48-4C22-952D-43470866F684}</Project>
     </ProjectReference>
   </ItemGroup>

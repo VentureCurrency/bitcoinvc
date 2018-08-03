@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_LIMITS_HPP
-#define LIBBITCOIN_LIMITS_HPP
+#ifndef BITCOINVC_LIMITS_HPP
+#define BITCOINVC_LIMITS_HPP
 
 #include <algorithm>
 #include <stdexcept>
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/compat.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 #define IF(T) std::enable_if<T>
 #define SIGN(T) std::is_signed<T>::value
@@ -188,6 +190,6 @@ To range_constrain(From value, To minimum, To maximum)
 #undef UNSIGNED_SIGNED
 #undef UNSIGNED_UNSIGNED
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

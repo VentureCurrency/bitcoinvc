@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_UNICODE_HPP
-#define LIBBITCOIN_UNICODE_HPP
+#ifndef BITCOINVC_UNICODE_HPP
+#define BITCOINVC_UNICODE_HPP
 
 #include <cstddef>
 #include <iostream>
@@ -32,10 +34,10 @@
 // as wchar_t in C++. Unicode no longer fits in 16 bits and as such these
 // implementations now require variable length character encoding just as utf8.
 //
-// Libbitcoin embraces the "utf8 everywhere" design: http://utf8everywhere.org
+// BitcoinVC embraces the "utf8 everywhere" design: http://utf8everywhere.org
 // The objective is to use utf8 as the canonical string encoding, pushing
 // wchar_t translation to the edge (stdio, argv, O/S and external API calls).
-// The macro BC_USE_LIBBITCOIN_MAIN does most of the heavy lifting to ensure
+// The macro BC_USE_BITCOINVC_MAIN does most of the heavy lifting to ensure
 // that stdio and argv is configured for utf8. The 'to_utf' functions are
 // provided for API translations.
 
@@ -50,7 +52,7 @@
 
 // Regarding Unicode in console applications:
 //
-// BC_USE_LIBBITCOIN_MAIN should be declared prior to bc::main() in a console
+// BC_USE_BITCOINVC_MAIN should be declared prior to bc::main() in a console
 // application. This enables Unicode argument and environment processing in
 // Windows. This macro implements main() and forwards to bc::main(), which
 // should be implemented as if it was main() with the expectation that argv
@@ -82,8 +84,8 @@
     #include <boost/filesystem.hpp>
     #include <boost/locale.hpp>
     #include <windows.h>
-    #define BC_USE_LIBBITCOIN_MAIN \
-        namespace libbitcoin { \
+    #define BC_USE_BITCOINVC_MAIN \
+        namespace bitcoinvc { \
         std::istream& cin = cin_stream(); \
         std::ostream& cout = cout_stream(); \
         std::ostream& cerr = cerr_stream(); \
@@ -93,7 +95,7 @@
         \
         int wmain(int argc, wchar_t* argv[]) \
         { \
-            using namespace libbitcoin; \
+            using namespace bitcoinvc; \
             boost::locale::generator locale; \
             std::locale::global(locale(BC_LOCALE_UTF8)); \
             boost::filesystem::path::imbue(std::locale()); \
@@ -102,7 +104,7 @@
             environ = bc::allocate_environment(_wenviron); \
             \
             auto arguments = bc::allocate_environment(argc, argv); \
-            const auto result = libbitcoin::main(argc, arguments); \
+            const auto result = bitcoinvc::main(argc, arguments); \
             \
             bc::free_environment(arguments); \
             bc::free_environment(environ); \
@@ -110,8 +112,8 @@
             return result; \
         }
 #else
-    #define BC_USE_LIBBITCOIN_MAIN \
-        namespace libbitcoin { \
+    #define BC_USE_BITCOINVC_MAIN \
+        namespace bitcoinvc { \
         std::istream& cin = std::cin; \
         std::ostream& cout = std::cout; \
         std::ostream& cerr = std::cerr; \
@@ -120,24 +122,24 @@
         \
         int main(int argc, char* argv[]) \
         { \
-            return libbitcoin::main(argc, argv); \
+            return bitcoinvc::main(argc, argv); \
         }
 #endif
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
- * Use bc::cin in place of std::cin, see BC_USE_LIBBITCOIN_MAIN.
+ * Use bc::cin in place of std::cin, see BC_USE_BITCOINVC_MAIN.
  */
 std::istream& cin_stream();
 
 /**
- * Use bc::cout in place of std::cout, see BC_USE_LIBBITCOIN_MAIN.
+ * Use bc::cout in place of std::cout, see BC_USE_BITCOINVC_MAIN.
  */
 std::ostream& cout_stream();
 
 /**
- * Use bc::cerr in place of std::cerr, see BC_USE_LIBBITCOIN_MAIN.
+ * Use bc::cerr in place of std::cerr, see BC_USE_BITCOINVC_MAIN.
  */
 std::ostream& cerr_stream();
 
@@ -256,6 +258,6 @@ BC_API void set_binary_stdin();
  */
 BC_API void set_binary_stdout();
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

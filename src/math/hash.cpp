@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,7 +35,7 @@
 #include "../math/external/sha256.h"
 #include "../math/external/sha512.h"
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 hash_digest bitcoin_hash(data_slice data)
 {
@@ -160,4 +162,4 @@ data_chunk scrypt(data_slice data, data_slice salt, uint64_t N, uint32_t p,
     return output;
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

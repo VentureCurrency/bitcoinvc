@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_CHECKSUM_IPP
-#define LIBBITCOIN_CHECKSUM_IPP
+#ifndef BITCOINVC_CHECKSUM_IPP
+#define BITCOINVC_CHECKSUM_IPP
 
 #include <algorithm>
 #include <cstddef>
@@ -26,7 +28,7 @@
 #include <bitcoin/bitcoin/utility/data.hpp>
 #include <bitcoin/bitcoin/utility/endian.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 template <size_t Size>
 bool build_checked_array(byte_array<Size>& out,
@@ -84,6 +86,6 @@ std::array<uint8_t, WRAP_SIZE(Size)> wrap(uint8_t version,
     return out;
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

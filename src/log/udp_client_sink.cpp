@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +26,7 @@
 #include <boost/make_shared.hpp>
 #include <bitcoin/bitcoin/error.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 using namespace std::placeholders;
@@ -63,4 +65,4 @@ void udp_client_sink::handle_send(const boost_code&, size_t,
 }
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc

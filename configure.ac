@@ -1,6 +1,6 @@
 ###############################################################################
 #  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-#
+#  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
 ###############################################################################
@@ -13,7 +13,7 @@
 AC_PREREQ([2.65])
 
 # Process command-line arguments and perform initialization and verification.
-AC_INIT([libbitcoin], [4.0.0], [eric@voskuil.org])
+AC_INIT([bitcoinvc], [4.0.0], [eric@voskuil.org])
 
 # Do compilation tests.
 AC_LANG(C++)
@@ -26,7 +26,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 # Run macros for operation of generated Makefiles, enable non-recursive make.
 # Unless [foreign] is specified standard GNU files will be required,
-# specifically: AUTHORS, COPYING, INSTALL, NEWS, README and ChangeLog.
+# specifically: COAUTHORS, COPYING, INSTALL, NEWS, README and ChangeLog.
 AM_INIT_AUTOMAKE([subdir-objects])
 
 # Enable C and POSIX extensions that may be disabled on certain platforms.
@@ -503,5 +503,5 @@ AS_CASE([${CC}], [*gcc*],
 
 # Process outputs into templates.
 #==============================================================================
-AC_CONFIG_FILES([Makefile libbitcoin.pc])
+AC_CONFIG_FILES([Makefile bitcoinvc.pc])
 AC_OUTPUT

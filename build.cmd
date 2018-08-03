@@ -1,6 +1,6 @@
 REM ###########################################################################
 REM #  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-REM #
+REM #  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 REM #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 REM #
 REM ###########################################################################
@@ -23,9 +23,9 @@ IF NOT EXIST "%nuget_pkg_path%" (
   )
 )
 
-call :bld_repo libbitcoin
+call :bld_repo bitcoinvc
 IF %ERRORLEVEL% NEQ 0 (
-  call :failure "Building libbitcoin failed."
+  call :failure "Building bitcoinvc failed."
   exit /b 1
 )
 

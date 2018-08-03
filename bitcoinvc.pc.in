@@ -1,6 +1,6 @@
 ###############################################################################
 #  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
-#
+#  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
 ###############################################################################
@@ -15,9 +15,9 @@ includedir=@includedir@
 
 # Metadata
 #==============================================================================
-Name: libbitcoin
+Name: bitcoinvc
 Description: Bitcoin Cross-Platform C++ Development Toolkit
-URL: https://github.com/libbitcoin/libbitcoin
+URL: https://github.com/bitcoinvc/bitcoinvc
 Version: @PACKAGE_VERSION@
 
 

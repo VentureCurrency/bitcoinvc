@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_MACHINE_NUMBER_IPP
-#define LIBBITCOIN_MACHINE_NUMBER_IPP
+#ifndef BITCOINVC_MACHINE_NUMBER_IPP
+#define BITCOINVC_MACHINE_NUMBER_IPP
 
 #include <cstdint>
 #include <cstdlib>
@@ -27,7 +29,7 @@
 #include <bitcoin/bitcoin/math/limits.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace machine {
 
 static const uint64_t negative_bit = number::negative_mask;
@@ -273,6 +275,6 @@ inline number& number::operator-=(int64_t value)
 }
 
 } // namespace machine
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_BASE_85_HPP
-#define LIBBITCOIN_BASE_85_HPP
+#ifndef BITCOINVC_BASE_85_HPP
+#define BITCOINVC_BASE_85_HPP
 
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /**
  * Encode data as base85 (Z85).
@@ -37,6 +39,6 @@ BC_API bool encode_base85(std::string& out, data_slice in);
  */
 BC_API bool decode_base85(data_chunk& out, const std::string& in);
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

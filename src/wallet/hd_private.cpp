@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +41,7 @@
 #include <bitcoin/bitcoin/wallet/ec_private.hpp>
 #include <bitcoin/bitcoin/wallet/ec_public.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace wallet {
 
 const uint64_t hd_private::mainnet = to_prefixes(76066276,
@@ -333,4 +335,4 @@ void swap(hd_private& left, hd_private& right)
 }
 
 } // namespace wallet
-} // namespace libbitcoin
+} // namespace bitcoinvc

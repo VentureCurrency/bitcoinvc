@@ -10,8 +10,8 @@
 
 // Modification of boost header to patch a lack of unicode path support.
 
-#ifndef LIBBITCOIN_INTERPROCESS_FILE_LOCK_HPP
-#define LIBBITCOIN_INTERPROCESS_FILE_LOCK_HPP
+#ifndef BITCOINVC_INTERPROCESS_FILE_LOCK_HPP
+#define BITCOINVC_INTERPROCESS_FILE_LOCK_HPP
 
 #include <string>
 #include <boost/interprocess/detail/config_begin.hpp>
@@ -30,7 +30,7 @@
 //!\file
 //!Describes a class that wraps file locking capabilities.
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace interprocess {
 
 //!A file lock, is a mutual exclusion utility similar to a mutex using a
@@ -163,7 +163,7 @@ inline void* CreateFileUTF8(const std::string& name, unsigned long access, unsig
 inline void *create_file(const std::string& name, unsigned long access, unsigned long creation_flags, unsigned long attributes, boost::interprocess::winapi::interprocess_security_attributes *psec)
 {
     for (unsigned int attempt(0); attempt < boost::interprocess::winapi::error_sharing_violation_tries; ++attempt){
-        void * const handle = libbitcoin::interprocess::CreateFileUTF8(name, access,
+        void * const handle = bitcoinvc::interprocess::CreateFileUTF8(name, access,
             boost::interprocess::winapi::file_share_read | boost::interprocess::winapi::file_share_write | boost::interprocess::winapi::file_share_delete,
             psec, creation_flags, attributes, 0);
         bool const invalid(boost::interprocess::winapi::invalid_handle_value == handle);
@@ -183,7 +183,7 @@ inline boost::interprocess::file_handle_t open_existing_file
 (const std::string& name, boost::interprocess::mode_t mode, bool temporary = false)
 {
     unsigned long attr = temporary ? boost::interprocess::winapi::file_attribute_temporary : 0;
-    return libbitcoin::interprocess::create_file
+    return bitcoinvc::interprocess::create_file
         (name, (unsigned int)mode, boost::interprocess::winapi::open_existing, attr, 0);
 }
 
@@ -193,7 +193,7 @@ inline boost::interprocess::file_handle_t open_existing_file
 inline file_lock::file_lock(const std::string& name)
 {
 #ifdef _MSC_VER
-    m_file_hnd = libbitcoin::interprocess::open_existing_file(name, boost::interprocess::read_write);
+    m_file_hnd = bitcoinvc::interprocess::open_existing_file(name, boost::interprocess::read_write);
 #else
     m_file_hnd = boost::interprocess::ipcdetail::open_existing_file(name.c_str(), boost::interprocess::read_write);
 #endif
@@ -274,8 +274,8 @@ inline void file_lock::unlock_sharable()
 }
 
 } // namespace interprocess
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #include <boost/interprocess/detail/config_end.hpp>
 
-#endif // LIBBITCOIN_INTERPROCESS_FILE_LOCK_HPP
+#endif // BITCOINVC_INTERPROCESS_FILE_LOCK_HPP

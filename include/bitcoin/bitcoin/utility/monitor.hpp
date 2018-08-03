@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_MONITOR_HPP
-#define LIBBITCOIN_MONITOR_HPP
+#ifndef BITCOINVC_MONITOR_HPP
+#define BITCOINVC_MONITOR_HPP
 
 #include <atomic>
 #include <cstddef>
@@ -26,10 +28,10 @@
 #include <utility>
 #include <bitcoin/bitcoin/define.hpp>
 
-// libbitcoin defines the log and tracking but does not use them.
+// bitcoinvc defines the log and tracking but does not use them.
 // These are defined in bc so that they can be used in network and blockchain.
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /// A reference counting wrapper for closures placed on the asio work heap.
 class BC_API monitor
@@ -61,6 +63,6 @@ private:
     const std::string name_;
 };
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

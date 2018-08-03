@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_MESSAGE_MESSAGES_HPP
-#define LIBBITCOIN_MESSAGE_MESSAGES_HPP
+#ifndef BITCOINVC_MESSAGE_MESSAGES_HPP
+#define BITCOINVC_MESSAGE_MESSAGES_HPP
 
 #include <algorithm>
 #include <cstdint>
@@ -57,10 +59,10 @@
 #include <bitcoin/bitcoin/utility/container_sink.hpp>
 #include <bitcoin/bitcoin/utility/data.hpp>
 
-// Minimum current libbitcoin protocol version:     31402
+// Minimum current bitcoinvc protocol version:     31402
 // Minimum current satoshi client protocol version: 31800
 
-// libbitcoin-network
+// bitcoinvc-network
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // version      v2      70001           added relay field
 // verack       v1
@@ -77,7 +79,7 @@
 // submitorder  --                      obsolete
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// libbitcoin-node
+// bitcoinvc-node
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // getblocks    v1
 // inv          v1
@@ -103,7 +105,7 @@
 // filterclear  --      70001   BIP037  no intent to support, see BIP111
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 #define DECLARE_MESSAGE_POINTER_TYPES(type) \
 typedef message::type::ptr type##_ptr; \
@@ -190,6 +192,6 @@ data_chunk serialize(uint32_t version, const Message& packet,
 BC_API size_t variable_uint_size(uint64_t value);
 
 } // namespace message
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

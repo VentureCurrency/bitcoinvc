@@ -22,7 +22,7 @@
 #include <boost/smart_ptr/bad_weak_ptr.hpp>
 #include <bitcoin/bitcoin/compat.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace log {
 
 static boost::arg<1> _1;
@@ -83,4 +83,4 @@ boost::shared_ptr<boost::log::sinks::file::collector> make_collector(
 }
 
 } // namespace log
-} // namespace libbitcoin
+} // namespace bitcoinvc

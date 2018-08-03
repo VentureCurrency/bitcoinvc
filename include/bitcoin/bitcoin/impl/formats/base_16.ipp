@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,12 +18,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_BASE_16_IPP
-#define LIBBITCOIN_BASE_16_IPP
+#ifndef BITCOINVC_BASE_16_IPP
+#define BITCOINVC_BASE_16_IPP
 
 #include <bitcoin/bitcoin/utility/assert.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 // For template implementation only, do not call directly.
 BC_API bool decode_base16_private(uint8_t* out, size_t out_size,
@@ -51,6 +53,6 @@ byte_array<(Size - 1) / 2> base16_literal(const char (&string)[Size])
     return out;
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
  |  Copyright (c) 2014-2015 libbitcoin developers (see COPYING).
- |
+ |  Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
  |         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
  |
  -->
@@ -9,7 +9,7 @@
   <PropertyGroup Label="Globals">
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <ProjectGuid>{39F60708-FF48-4C22-952D-43470866F684}</ProjectGuid>
-    <ProjectName>libbitcoin</ProjectName>
+    <ProjectName>bitcoinvc</ProjectName>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugDLL|Win32">

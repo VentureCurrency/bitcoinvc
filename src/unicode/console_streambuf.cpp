@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +40,7 @@ static LPVOID get_input_handle()
 }
 #endif
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 // This class/mathod is a no-op on non-windows platforms.
 // When working in Windows console set font to "Lucida Console".
@@ -125,4 +127,4 @@ std::wstreambuf::int_type console_streambuf::underflow()
     return traits_type::to_int_type(*gptr());
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

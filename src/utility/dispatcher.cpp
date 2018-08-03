@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +25,7 @@
 #include <bitcoin/bitcoin/utility/threadpool.hpp>
 #include <bitcoin/bitcoin/utility/work.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 dispatcher::dispatcher(threadpool& pool, const std::string& name)
   : heap_(std::make_shared<work>(pool, name)), pool_(pool)
@@ -50,4 +52,4 @@ dispatcher::dispatcher(threadpool& pool, const std::string& name)
 ////    return heap_->combined_backlog();
 ////}
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

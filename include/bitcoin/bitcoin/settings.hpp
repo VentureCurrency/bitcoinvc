@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2018 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2018 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_SETTINGS_HPP
-#define LIBBITCOIN_SETTINGS_HPP
+#ifndef BITCOINVC_SETTINGS_HPP
+#define BITCOINVC_SETTINGS_HPP
 
 #include <bitcoin/bitcoin/chain/block.hpp>
 #include <bitcoin/bitcoin/config/settings.hpp>
@@ -27,7 +29,7 @@
 #include <cstddef>
 #include <string>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 /// Common database configuration settings, properties not thread safe.
 class BC_API settings
@@ -80,6 +82,6 @@ public:
     uint32_t bip16_activation_time;
 };
 
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

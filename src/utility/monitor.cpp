@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,10 +25,10 @@
 #include <utility>
 ////#include <bitcoin/bitcoin/log/sources.hpp>
 
-// libbitcoin defines the log and tracking but does not use them.
+// bitcoinvc defines the log and tracking but does not use them.
 // These are defined in bc so that they can be used in network and blockchain.
 
-namespace libbitcoin {
+namespace bitcoinvc {
 
 monitor::monitor(count_ptr counter, std::string&& name)
   : counter_(counter), name_(std::move(name))
@@ -39,4 +41,4 @@ monitor::~monitor()
     trace(--(*counter_), "-");
 }
 
-} // namespace libbitcoin
+} // namespace bitcoinvc

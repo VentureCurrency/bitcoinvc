@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,7 +24,7 @@
 #include <bitcoin/bitcoin/chain/points_value.hpp>
 #include <bitcoin/bitcoin/math/limits.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace chain {
 
 uint64_t points_value::value() const
@@ -36,4 +38,4 @@ uint64_t points_value::value() const
 }
 
 } // namespace chain
-} // namespace libbitcoin
+} // namespace bitcoinvc

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)￼
+ *
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_ASIO_HPP
-#define LIBBITCOIN_ASIO_HPP
+#ifndef BITCOINVC_ASIO_HPP
+#define BITCOINVC_ASIO_HPP
 
 #include <chrono>
 #include <memory>
@@ -27,7 +29,7 @@
 
 // Convenience namespace for commonly used boost asio aliases.
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace asio {
 
 namespace error = boost::asio::error;
@@ -66,6 +68,6 @@ typedef std::shared_ptr<socket> socket_ptr;
 BC_CONSTEXPR int max_connections = boost::asio::socket_base::max_connections;
 
 } // namespace asio
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif

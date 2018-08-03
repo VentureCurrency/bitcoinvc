@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2017 libbitcoin developers (see COAUTHORS)
  *
- * This file is part of libbitcoin.
+ * Copyright (c) 2018 bitcoin.org.vc Bitcoin Venture Currency/Jason Coombs (see COAUTHORS)
+ ￼*
+ ￼* This file is part of bitcoinvc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +18,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_MESSAGE_GET_HEADERS_HPP
-#define LIBBITCOIN_MESSAGE_GET_HEADERS_HPP
+#ifndef BITCOINVC_MESSAGE_GET_HEADERS_HPP
+#define BITCOINVC_MESSAGE_GET_HEADERS_HPP
 
 #include <istream>
 #include <memory>
@@ -25,7 +27,7 @@
 #include <bitcoin/bitcoin/math/hash.hpp>
 #include <bitcoin/bitcoin/message/get_blocks.hpp>
 
-namespace libbitcoin {
+namespace bitcoinvc {
 namespace message {
 
 class BC_API get_headers
@@ -62,6 +64,6 @@ public:
 };
 
 } // namespace message
-} // namespace libbitcoin
+} // namespace bitcoinvc
 
 #endif
