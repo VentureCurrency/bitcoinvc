@@ -37,6 +37,9 @@ typedef boost::program_options::positional_options_description
 
 namespace config {
 
+#define PROPERTY(type, property) \
+    value<type>()->notifier([&](type value) { property(value); })
+
 /// Parse configurable values from environment variables, settings file, and
 /// command line positional and non-positional options.
 class BC_API parser

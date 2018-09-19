@@ -23,6 +23,8 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <iterator>
+#include <boost/multiprecision/integer.hpp>
 #include <boost/range/adaptor/reversed.hpp>
 #include <bitcoin/bitcoin/chain/block.hpp>
 #include <bitcoin/bitcoin/chain/chain_state.hpp>
@@ -48,14 +50,14 @@ using namespace boost::adaptors;
 // Inlines.
 //-----------------------------------------------------------------------------
 
-inline bool is_active(size_t count, size_t net_active)
+inline bool is_active(size_t count, size_t activation_threshold)
 {
-    return count >= net_active;
+    return count >= activation_threshold;
 }
 
-inline bool is_enforced(size_t count, size_t net_enforce)
+inline bool is_enforced(size_t count, size_t enforcement_threshold)
 {
-    return count >= net_enforce;
+    return count >= enforcement_threshold;
 }
 
 inline bool is_bip30_exception(const checkpoint& check, bool mainnet)
@@ -63,53 +65,6 @@ inline bool is_bip30_exception(const checkpoint& check, bool mainnet)
     return mainnet &&
         ((check == mainnet_bip30_exception_checkpoint1) ||
          (check == mainnet_bip30_exception_checkpoint2));
-}
-
-inline bool bip9_bit0_active(const hash_digest& hash, bool mainnet,
-    bool testnet)
-{
-    const auto regtest = !mainnet && !testnet;
-    return
-        (mainnet && hash == mainnet_bip9_bit0_active_checkpoint.hash()) ||
-        (testnet && hash == testnet_bip9_bit0_active_checkpoint.hash()) ||
-        (regtest && hash == regtest_bip9_bit0_active_checkpoint.hash());
-}
-
-inline bool bip9_bit0_active(size_t height, bool mainnet, bool testnet)
-{
-    const auto regtest = !mainnet && !testnet;
-    return
-        (mainnet && height == mainnet_bip9_bit0_active_checkpoint.height()) ||
-        (testnet && height == testnet_bip9_bit0_active_checkpoint.height()) ||
-        (regtest && height == regtest_bip9_bit0_active_checkpoint.height());
-}
-
-inline bool bip9_bit1_active(const hash_digest& hash, bool mainnet,
-    bool testnet)
-{
-    const auto regtest = !mainnet && !testnet;
-    return
-        (mainnet && hash == mainnet_bip9_bit1_active_checkpoint.hash()) ||
-        (testnet && hash == testnet_bip9_bit1_active_checkpoint.hash()) ||
-        (regtest && hash == regtest_bip9_bit1_active_checkpoint.hash());
-}
-
-inline bool bip9_bit1_active(size_t height, bool mainnet, bool testnet)
-{
-    const auto regtest = !mainnet && !testnet;
-    return
-        (mainnet && height == mainnet_bip9_bit1_active_checkpoint.height()) ||
-        (testnet && height == testnet_bip9_bit1_active_checkpoint.height()) ||
-        (regtest && height == regtest_bip9_bit1_active_checkpoint.height());
-}
-
-inline bool bip34(size_t height, bool frozen, bool mainnet, bool testnet)
-{
-    const auto regtest = !mainnet && !testnet;
-    return frozen &&
-        ((mainnet && height >= mainnet_bip34_freeze) ||
-         (testnet && height >= testnet_bip34_freeze) ||
-         (regtest && height >= regtest_bip34_freeze));
 }
 
 inline uint32_t timestamp_high(const chain_state::data& values)
@@ -135,7 +90,6 @@ chain_state::activations chain_state::activation(const data& values,
     const auto difficult = script::is_enabled(forks, rule_fork::difficult);
     const auto retarget = script::is_enabled(forks, rule_fork::retarget);
     const auto mainnet = retarget && difficult;
-    const auto testnet = !difficult;
 
     //*************************************************************************
     // CONSENSUS: Though unspecified in bip34, the satoshi implementation
@@ -160,7 +114,7 @@ chain_state::activations chain_state::activation(const data& values,
     const auto count_4 = std::count_if(history.begin(), history.end(), ge_4);
 
     // Frozen activations (require version and enforce above freeze height).
-    const auto bip34_ice = bip34(height, frozen, mainnet, testnet);
+    const auto bip34_ice = frozen && height >= settings.bip34_freeze;
     const auto bip66_ice = frozen && height >= settings.bip66_freeze;
     const auto bip65_ice = frozen && height >= settings.bip65_freeze;
 
@@ -175,6 +129,15 @@ chain_state::activations chain_state::activation(const data& values,
 
     // bip90 is activated based on configuration alone (hard fork).
     result.forks |= (rule_fork::bip90_rule & forks);
+
+    // time_warp_patch is activated based on configuration alone (hard fork).
+    result.forks |= (rule_fork::time_warp_patch & forks);
+
+    // retarget_overflow_patch is activated based on configuration alone (hard fork).
+    result.forks |= (rule_fork::retarget_overflow_patch & forks);
+
+    // scrypt_proof_of_work is activated based on configuration alone (hard fork).
+    result.forks |= (rule_fork::scrypt_proof_of_work & forks);
 
     // bip16 was activated based on manual inspection of history (~55% rule).
     if (values.timestamp.self >= settings.bip16_activation_time)
@@ -191,48 +154,48 @@ chain_state::activations chain_state::activation(const data& values,
     }
 
     // bip34 is activated based on 75% of preceding 1000 mainnet blocks.
-    if (bip34_ice || (is_active(count_2, settings.net_active) && version >=
+    if (bip34_ice || (is_active(count_2, settings.activation_threshold) && version >=
         settings.bip34_version))
     {
         result.forks |= (rule_fork::bip34_rule & forks);
     }
 
     // bip66 is activated based on 75% of preceding 1000 mainnet blocks.
-    if (bip66_ice || (is_active(count_3, settings.net_active) && version >=
+    if (bip66_ice || (is_active(count_3, settings.activation_threshold) && version >=
         settings.bip66_version))
     {
         result.forks |= (rule_fork::bip66_rule & forks);
     }
 
     // bip65 is activated based on 75% of preceding 1000 mainnet blocks.
-    if (bip65_ice || (is_active(count_4, settings.net_active) && version >=
+    if (bip65_ice || (is_active(count_4, settings.activation_threshold) && version >=
         settings.bip65_version))
     {
         result.forks |= (rule_fork::bip65_rule & forks);
     }
 
     // bip9_bit0 forks are enforced above the bip9_bit0 checkpoint.
-    if (bip9_bit0_active(values.bip9_bit0_hash, mainnet, testnet))
+    if (values.bip9_bit0_hash == settings.bip9_bit0_active_checkpoint.hash())
     {
         result.forks |= (rule_fork::bip9_bit0_group & forks);
     }
 
     // bip9_bit1 forks are enforced above the bip9_bit1 checkpoint.
-    if (bip9_bit1_active(values.bip9_bit1_hash, mainnet, testnet))
+    if (values.bip9_bit1_hash == settings.bip9_bit1_active_checkpoint.hash())
     {
         result.forks |= (rule_fork::bip9_bit1_group & forks);
     }
 
     // version 4/3/2 enforced based on 95% of preceding 1000 mainnet blocks.
-    if (bip65_ice || is_enforced(count_4, settings.net_enforce))
+    if (bip65_ice || is_enforced(count_4, settings.enforcement_threshold))
     {
         result.minimum_block_version = settings.bip65_version;
     }
-    else if (bip66_ice || is_enforced(count_3, settings.net_enforce))
+    else if (bip66_ice || is_enforced(count_3, settings.enforcement_threshold))
     {
         result.minimum_block_version = settings.bip66_version;
     }
-    else if (bip34_ice || is_enforced(count_2, settings.net_enforce))
+    else if (bip34_ice || is_enforced(count_2, settings.enforcement_threshold))
     {
         result.minimum_block_version = settings.bip34_version;
     }
@@ -266,7 +229,7 @@ size_t chain_state::bits_count(size_t height, uint32_t forks,
 }
 
 size_t chain_state::version_count(size_t height, uint32_t forks,
-    size_t net_sample)
+    size_t activation_sample)
 {
     if (script::is_enabled(forks, rule_fork::bip90_rule) ||
         !script::is_enabled(forks, rule_fork::bip34_activations))
@@ -274,7 +237,7 @@ size_t chain_state::version_count(size_t height, uint32_t forks,
         return 0;
     }
 
-    return std::min(height, net_sample);
+    return std::min(height, activation_sample);
 }
 
 size_t chain_state::timestamp_count(size_t height, uint32_t)
@@ -294,27 +257,18 @@ size_t chain_state::retarget_height(size_t height, uint32_t forks,
         retargeting_interval : retarget_distance(height, retargeting_interval));
 }
 
-size_t chain_state::bip9_bit0_height(size_t height, uint32_t forks)
+size_t chain_state::bip9_bit0_height(size_t height,
+    const config::checkpoint& bip9_bit0_active_checkpoint)
 {
-    const auto testnet = !script::is_enabled(forks, rule_fork::difficult);
-    const auto regtest = !script::is_enabled(forks, rule_fork::retarget);
-
-    const auto activation_height =
-        testnet ? testnet_bip9_bit0_active_checkpoint.height() :
-        regtest ? regtest_bip9_bit0_active_checkpoint.height() :
-            mainnet_bip9_bit0_active_checkpoint.height();
-
+    const auto activation_height = bip9_bit0_active_checkpoint.height();
     // Require bip9_bit0 hash at heights above historical bip9_bit0 activation.
     return height > activation_height ? activation_height : map::unrequested;
 }
 
-size_t chain_state::bip9_bit1_height(size_t height, uint32_t forks)
+size_t chain_state::bip9_bit1_height(size_t height,
+    const config::checkpoint& bip9_bit1_active_checkpoint)
 {
-    const auto testnet = !script::is_enabled(forks, rule_fork::difficult);
-
-    const auto activation_height = testnet ?
-        testnet_bip9_bit1_active_checkpoint.height() :
-        mainnet_bip9_bit1_active_checkpoint.height();
+    const auto activation_height = bip9_bit1_active_checkpoint.height();
 
     // Require bip9_bit1 hash at heights above historical bip9_bit1 activation.
     return height > activation_height ? activation_height : map::unrequested;
@@ -351,42 +305,49 @@ uint32_t chain_state::work_required(const data& values, uint32_t forks,
         return bits_high(values);
 
     // Mainnet and testnet retarget on interval.
-    if (is_retarget_height(values.height, settings.retargeting_interval))
-        return work_required_retarget(values,
-            settings.retarget_proof_of_work_limit, settings.min_timespan,
-            settings.max_timespan, settings.target_timespan_seconds);
+    if (is_retarget_height(values.height, settings.retargeting_interval()))
+        return work_required_retarget(values, forks,
+            settings.proof_of_work_limit, settings.minimum_timespan(),
+            settings.maximum_timespan(),
+            settings.retargeting_interval_seconds());
 
     // Testnet retargets easy on inter-interval.
     if (!script::is_enabled(forks, rule_fork::difficult))
-        return easy_work_required(values, settings.retargeting_interval,
-            settings.retarget_proof_of_work_limit,
-            settings.easy_spacing_seconds);
+        return easy_work_required(values, settings.retargeting_interval(),
+            settings.proof_of_work_limit, settings.block_spacing_seconds());
 
     // Mainnet not retargeting.
     return bits_high(values);
 }
 
-uint32_t chain_state::work_required_retarget(const data& values,
-    uint32_t retarget_proof_of_work_limit, uint32_t min_timespan,
-    uint32_t max_timespan, uint32_t target_timespan_seconds)
+uint32_t chain_state::work_required_retarget(const data& values, uint32_t forks,
+    uint32_t proof_of_work_limit, uint32_t minimum_timespan,
+    uint32_t maximum_timespan, uint32_t retargeting_interval_seconds)
 {
-    static const uint256_t pow_limit(compact{ retarget_proof_of_work_limit });
+    static const uint256_t pow_limit(compact{ proof_of_work_limit });
 
     const compact bits(bits_high(values));
     BITCOIN_ASSERT_MSG(!bits.is_overflowed(), "previous block has bad bits");
 
     uint256_t target(bits);
-    target *= retarget_timespan(values, min_timespan, max_timespan);
-    target /= target_timespan_seconds;
+    const auto retarget_overflow = script::is_enabled(forks,
+        rule_fork::retarget_overflow_patch);
+    using namespace boost::multiprecision;
+    const auto shift = retarget_overflow && (msb(target) + 1 > msb(pow_limit)) ?
+        1u : 0u;
+    target >>= shift;
+    target *= retarget_timespan(values, minimum_timespan, maximum_timespan);
+    target /= retargeting_interval_seconds;
+    target <<= shift;
 
     // The proof_of_work_limit constant is pre-normalized.
-    return target > pow_limit ? retarget_proof_of_work_limit :
+    return target > pow_limit ? proof_of_work_limit :
         compact(target).normal();
 }
 
 // Get the bounded total time spanning the highest 2016 blocks.
 uint32_t chain_state::retarget_timespan(const data& values,
-    uint32_t min_timespan, uint32_t max_timespan)
+    uint32_t minimum_timespan, uint32_t maximum_timespan)
 {
     const auto high = timestamp_high(values);
     const auto retarget = values.timestamp.retarget;
@@ -396,18 +357,21 @@ uint32_t chain_state::retarget_timespan(const data& values,
     // order to prevent underflow before applying the range constraint.
     //*************************************************************************
     const auto timespan = cast_subtract<int64_t>(high, retarget);
-    return range_constrain(timespan, min_timespan, max_timespan);
+    return range_constrain(timespan, minimum_timespan, maximum_timespan);
 }
 
 uint32_t chain_state::easy_work_required(const data& values,
-    size_t retargeting_interval, uint32_t retarget_proof_of_work_limit,
-    uint32_t easy_spacing_seconds)
+    size_t retargeting_interval, uint32_t proof_of_work_limit,
+    uint32_t block_spacing_seconds)
 {
     BITCOIN_ASSERT(values.height != 0);
 
+    // Overflow allowed here since supported coins would not do so.
+    const auto easy_spacing_seconds = block_spacing_seconds << 1;
+
     // If the time limit has passed allow a minimum difficulty block.
     if (values.timestamp.self > easy_time_limit(values, easy_spacing_seconds))
-        return retarget_proof_of_work_limit;
+        return proof_of_work_limit;
 
     auto height = values.height;
     const auto& bits = values.bits.ordered;
@@ -415,13 +379,13 @@ uint32_t chain_state::easy_work_required(const data& values,
     // Reverse iterate the ordered-by-height list of header bits.
     for (auto bit: reverse(bits))
         if (is_retarget_or_non_limit(--height, bit, retargeting_interval,
-            retarget_proof_of_work_limit))
+            proof_of_work_limit))
             return bit;
 
     // Since the set of heights is either a full retarget range or ends at
     // zero this is not reachable unless the data set is invalid.
     BITCOIN_ASSERT(false);
-    return retarget_proof_of_work_limit;
+    return proof_of_work_limit;
 }
 
 uint32_t chain_state::easy_time_limit(const chain_state::data& values,
@@ -438,14 +402,14 @@ uint32_t chain_state::easy_time_limit(const chain_state::data& values,
 
 // A retarget height, or a block that does not have proof_of_work_limit bits.
 bool chain_state::is_retarget_or_non_limit(size_t height, uint32_t bits,
-    size_t retargeting_interval, uint32_t retarget_proof_of_work_limit)
+    size_t retargeting_interval, uint32_t proof_of_work_limit)
 {
     // Zero is a retarget height, ensuring termination before height underflow.
     // This is guaranteed, just asserting here to document the safeguard.
     BITCOIN_ASSERT_MSG(is_retarget_height(0, retargeting_interval),
         "loop overflow potential");
 
-    return bits != retarget_proof_of_work_limit ||
+    return bits != proof_of_work_limit ||
         is_retarget_height(height, retargeting_interval);
 }
 
@@ -468,7 +432,9 @@ size_t chain_state::retarget_distance(size_t height,
 // static
 chain_state::map chain_state::get_map(size_t height,
     const checkpoints& /* checkpoints */, uint32_t forks,
-    size_t retargeting_interval, size_t net_sample)
+    size_t retargeting_interval, size_t activation_sample,
+    const config::checkpoint& bip9_bit0_active_checkpoint,
+    const config::checkpoint& bip9_bit1_active_checkpoint)
 {
     if (height == 0)
         return {};
@@ -488,17 +454,19 @@ chain_state::map chain_state::get_map(size_t height,
     // The height bound of the version sample for activations.
     map.version_self = height;
     map.version.high = height - 1;
-    map.version.count = version_count(height, forks, net_sample);
+    map.version.count = version_count(height, forks, activation_sample);
 
     // The most recent past retarget height.
     map.timestamp_retarget = retarget_height(height, forks,
         retargeting_interval);
 
     // The checkpoint above which bip9_bit0 rules are enforced.
-    map.bip9_bit0_height = bip9_bit0_height(height, forks);
+    map.bip9_bit0_height = bip9_bit0_height(height,
+        bip9_bit0_active_checkpoint);
 
     // The checkpoint above which bip9_bit1 rules are enforced.
-    map.bip9_bit1_height = bip9_bit1_height(height, forks);
+    map.bip9_bit1_height = bip9_bit1_height(height,
+        bip9_bit1_active_checkpoint);
 
     return map;
 }
@@ -529,6 +497,27 @@ uint32_t chain_state::signal_version(uint32_t forks,
     return settings.first_version;
 }
 
+// static
+uint32_t chain_state::minimum_timespan(uint32_t retargeting_interval_seconds,
+    uint32_t retargeting_factor)
+{
+    return retargeting_interval_seconds / retargeting_factor;
+}
+
+// static
+uint32_t chain_state::maximum_timespan(uint32_t retargeting_interval_seconds,
+    uint32_t retargeting_factor)
+{
+    return retargeting_interval_seconds * retargeting_factor;
+}
+
+// static
+uint32_t chain_state::retargeting_interval(
+    uint32_t retargeting_interval_seconds, uint32_t block_spacing_seconds)
+{
+    return retargeting_interval_seconds / block_spacing_seconds;
+}
+
 // This is promotion from a preceding height to the next.
 chain_state::data chain_state::to_pool(const chain_state& top,
     const bc::settings& settings)
@@ -552,12 +541,12 @@ chain_state::data chain_state::to_pool(const chain_state& top,
 
     // If bits collection overflows, dequeue oldest member.
     if (data.bits.ordered.size() >
-        bits_count(height, forks, settings.retargeting_interval))
+        bits_count(height, forks, settings.retargeting_interval()))
         data.bits.ordered.pop_front();
 
     // If version collection overflows, dequeue oldest member.
     if (data.version.ordered.size() > version_count(height, forks,
-            settings.net_sample))
+            settings.activation_sample))
         data.version.ordered.pop_front();
 
     // If timestamp collection overflows, dequeue oldest member.
@@ -567,8 +556,10 @@ chain_state::data chain_state::to_pool(const chain_state& top,
     // Regtest does not perform retargeting.
     // If promoting from retarget height, move that timestamp into retarget.
     if (retarget &&
-        is_retarget_height(height - 1u, settings.retargeting_interval))
-        data.timestamp.retarget = data.timestamp.self;
+        is_retarget_height(height - 1u, settings.retargeting_interval()))
+        data.timestamp.retarget = (script::is_enabled(forks,
+            rule_fork::time_warp_patch) && height != 1) ?
+            *std::next(data.timestamp.ordered.crbegin()) : data.timestamp.self;
 
     // Replace previous block state with tx pool chain state for next height
     // Preserve top block timestamp for use in computation of staleness.
@@ -596,17 +587,9 @@ chain_state::chain_state(const chain_state& top, const bc::settings& settings)
 }
 
 chain_state::data chain_state::to_block(const chain_state& pool,
-    const block& block)
+    const block& block, const config::checkpoint& bip9_bit0_active_checkpoint,
+    const config::checkpoint& bip9_bit1_active_checkpoint)
 {
-    // Alias configured forks.
-    const auto forks = pool.forks_;
-
-    // Retargeting and testnet are only activated via configuration.
-    const auto difficult = script::is_enabled(forks, rule_fork::difficult);
-    const auto retarget = script::is_enabled(forks, rule_fork::retarget);
-    const auto mainnet = retarget && difficult;
-    const auto testnet = !difficult;
-
     // Copy data from presumed same-height pool state.
     auto data = pool.data_;
 
@@ -619,11 +602,11 @@ chain_state::data chain_state::to_block(const chain_state& pool,
     data.timestamp.self = header.timestamp();
 
     // Cache hash of bip9 bit0 height block, otherwise use preceding state.
-    if (bip9_bit0_active(data.height, mainnet, testnet))
+    if (data.height == bip9_bit0_active_checkpoint.height())
         data.bip9_bit0_hash = data.hash;
 
     // Cache hash of bip9 bit1 height block, otherwise use preceding state.
-    if (bip9_bit1_active(data.height, mainnet, testnet))
+    if (data.height == bip9_bit1_active_checkpoint.height())
         data.bip9_bit1_hash = data.hash;
 
     return data;
@@ -633,7 +616,8 @@ chain_state::data chain_state::to_block(const chain_state& pool,
 // This assumes that the pool state is the same height as the block.
 chain_state::chain_state(const chain_state& pool, const block& block,
     const bc::settings& settings)
-  : data_(to_block(pool, block)),
+  : data_(to_block(pool, block, settings.bip9_bit0_active_checkpoint,
+        settings.bip9_bit1_active_checkpoint)),
     forks_(pool.forks_),
     stale_seconds_(pool.stale_seconds_),
     checkpoints_(pool.checkpoints_),
@@ -648,15 +632,6 @@ chain_state::data chain_state::to_header(const chain_state& parent,
 {
     BITCOIN_ASSERT(header.previous_block_hash() == parent.hash());
 
-    // Alias configured forks.
-    const auto forks = parent.forks_;
-
-    // Retargeting and testnet are only activated via configuration.
-    const auto difficult = script::is_enabled(forks, rule_fork::difficult);
-    const auto retarget = script::is_enabled(forks, rule_fork::retarget);
-    const auto mainnet = retarget && difficult;
-    const auto testnet = !difficult;
-
     // Copy and promote data from presumed parent-height header/block state.
     auto data = to_pool(parent, settings);
 
@@ -668,11 +643,11 @@ chain_state::data chain_state::to_header(const chain_state& parent,
     data.timestamp.self = header.timestamp();
 
     // Cache hash of bip9 bit0 height block, otherwise use preceding state.
-    if (bip9_bit0_active(data.height, mainnet, testnet))
+    if (data.height == settings.bip9_bit0_active_checkpoint.height())
         data.bip9_bit0_hash = data.hash;
 
     // Cache hash of bip9 bit1 height block, otherwise use preceding state.
-    if (bip9_bit1_active(data.height, mainnet, testnet))
+    if (data.height == settings.bip9_bit1_active_checkpoint.height())
         data.bip9_bit1_hash = data.hash;
 
     return data;

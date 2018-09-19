@@ -38,9 +38,6 @@
 
 namespace bitcoinvc {
 
-/*
- * Forward declaration to break header cycle.
- */
 class settings;
 
 namespace chain {
@@ -58,6 +55,7 @@ public:
     struct validation
     {
         uint64_t originator = 0;
+        uint32_t median_time_past = 0;
         chain_state::ptr state = nullptr;
 
         /// The block validation error code (if validated).
@@ -82,17 +80,17 @@ public:
     // Constructors.
     //-------------------------------------------------------------------------
 
-    header(const settings& settings);
+    header();
 
     header(header&& other);
     header(const header& other);
 
     header(uint32_t version, const hash_digest& previous_block_hash,
         const hash_digest& merkle, uint32_t timestamp, uint32_t bits,
-        uint32_t nonce, const settings& settings);
+        uint32_t nonce);
     header(uint32_t version, hash_digest&& previous_block_hash,
         hash_digest&& merkle, uint32_t timestamp, uint32_t bits,
-        uint32_t nonce, const settings& settings);
+        uint32_t nonce);
 
     // Operators.
     //-------------------------------------------------------------------------
@@ -106,16 +104,12 @@ public:
     // Deserialization.
     //-------------------------------------------------------------------------
 
-    static header factory(const data_chunk& data, const settings& settings,
-        bool wire=true);
-    static header factory(std::istream& stream, const settings& settings,
-        bool wire=true);
-    static header factory(reader& source, const settings& settings,
-        bool wire=true);
-    static header factory(reader& source, hash_digest&& hash,
-        const settings& settings, bool wire=true);
+    static header factory(const data_chunk& data, bool wire=true);
+    static header factory(std::istream& stream, bool wire=true);
+    static header factory(reader& source, bool wire=true);
+    static header factory(reader& source, hash_digest&& hash, bool wire=true);
     static header factory(reader& source, const hash_digest& hash,
-        const settings& settings, bool wire=true);
+        bool wire=true);
 
     bool from_data(const data_chunk& data, bool wire=true);
     bool from_data(std::istream& stream, bool wire=true);
@@ -170,7 +164,8 @@ public:
     bool is_valid_timestamp() const;
     bool is_valid_expected_utility(bool retarget) const;
 
-    code check(bool retarget) const;
+    code check(uint32_t timestamp_limit_seconds, uint32_t proof_of_work_limit,
+        bool scrypt=false) const;
     code accept() const;
     code accept(const chain_state& state) const;
 
@@ -198,7 +193,6 @@ private:
     uint32_t timestamp_;
     uint32_t bits_;
     uint32_t nonce_;
-    const settings& settings_;
 };
 
 } // namespace chain

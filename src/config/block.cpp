@@ -26,7 +26,6 @@
 #include <boost/program_options.hpp>
 #include <bitcoin/bitcoin/chain/block.hpp>
 #include <bitcoin/bitcoin/config/base16.hpp>
-#include <bitcoin/bitcoin/settings.hpp>
 
 namespace bitcoinvc {
 namespace config {
@@ -50,6 +49,18 @@ block::block(const chain::block& value)
 block::block(const block& other)
   : block(other.value_)
 {
+}
+
+block& block::operator=(const block& other)
+{
+    value_ = chain::block(other.value_);
+    return *this;
+}
+
+block& block::operator=(chain::block&& other)
+{
+    value_ = std::move(other);
+    return *this;
 }
 
 bool block::operator==(const block& other) const

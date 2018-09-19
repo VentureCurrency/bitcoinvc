@@ -130,9 +130,18 @@ public:
 
     /// Checkpoints must be ordered by height with greatest at back.
     static map get_map(size_t height, const checkpoints& checkpoints,
-        uint32_t forks, size_t retargeting_interval, size_t net_sample);
+        uint32_t forks, size_t retargeting_interval, size_t activation_sample,
+        const config::checkpoint& bip9_bit0_active_checkpoint,
+        const config::checkpoint& bip9_bit1_active_checkpoint);
 
     static uint32_t signal_version(uint32_t forks, const settings& settings);
+
+    static uint32_t minimum_timespan(uint32_t retargeting_interval_seconds,
+        uint32_t retargeting_factor);
+    static uint32_t maximum_timespan(uint32_t retargeting_interval_seconds,
+        uint32_t retargeting_factor);
+    static uint32_t retargeting_interval(uint32_t retargeting_interval_seconds,
+        uint32_t block_spacing_seconds);
 
     /// Create pool state from top chain top block state.
     chain_state(const chain_state& top, const settings& settings);
@@ -197,32 +206,36 @@ private:
     static size_t bits_count(size_t height, uint32_t forks,
         size_t retargeting_interval);
     static size_t version_count(size_t height, uint32_t forks,
-        size_t net_sample);
+        size_t activation_sample);
     static size_t timestamp_count(size_t height, uint32_t forks);
     static size_t retarget_height(size_t height, uint32_t forks,
         size_t retargeting_interval);
-    static size_t bip9_bit0_height(size_t height, uint32_t forks);
-    static size_t bip9_bit1_height(size_t height, uint32_t forks);
+    static size_t bip9_bit0_height(size_t height,
+        const config::checkpoint& bip9_bit0_active_checkpoint);
+    static size_t bip9_bit1_height(size_t height,
+        const config::checkpoint& bip9_bit1_active_checkpoint);
 
     static data to_pool(const chain_state& top, const settings& settings);
-    static data to_block(const chain_state& pool, const block& block);
+    static data to_block(const chain_state& pool, const block& block,
+        const config::checkpoint& bip9_bit0_active_checkpoint,
+        const config::checkpoint& bip9_bit1_active_checkpoint);
     data to_header(const chain_state& parent, const header& header,
         const settings& settings);
 
-    static uint32_t work_required_retarget(const data& values,
-        uint32_t retarget_proof_of_work_limit, uint32_t min_timespan,
-        uint32_t max_timespan, uint32_t target_timespan_seconds);
+    static uint32_t work_required_retarget(const data& values, uint32_t forks,
+        uint32_t proof_of_work_limit, uint32_t minimum_timespan,
+        uint32_t maximum_timespan, uint32_t retargeting_interval_seconds);
     static uint32_t retarget_timespan(const chain_state::data& values,
-        uint32_t min_timespan, uint32_t max_timespan);
+        uint32_t minimum_timespan, uint32_t maximum_timespan);
 
     // easy blocks
     static uint32_t easy_work_required(const data& values,
-        size_t retargeting_interval, uint32_t retarget_proof_of_work_limit,
-        uint32_t easy_spacing_seconds);
+        size_t retargeting_interval, uint32_t proof_of_work_limit,
+        uint32_t block_spacing_seconds);
     static uint32_t easy_time_limit(const chain_state::data& values,
         int64_t spacing);
     static bool is_retarget_or_non_limit(size_t height, uint32_t bits,
-        size_t retargeting_interval, uint32_t retarget_proof_of_work_limit);
+        size_t retargeting_interval, uint32_t proof_of_work_limit);
     static bool is_retarget_height(size_t height, size_t retargeting_interval);
     static size_t retarget_distance(size_t height, size_t retargeting_interval);
 

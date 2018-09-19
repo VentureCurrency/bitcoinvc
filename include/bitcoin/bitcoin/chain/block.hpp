@@ -42,9 +42,6 @@
 
 namespace bitcoinvc {
 
-/**
- * Forward declaration to break header cycle.
- */
 class settings;
 
 namespace chain {
@@ -74,7 +71,7 @@ public:
     // Constructors.
     //-------------------------------------------------------------------------
 
-    block(const settings& settings);
+    block();
 
     block(block&& other);
     block(const block& other);
@@ -95,12 +92,9 @@ public:
     // Deserialization.
     //-------------------------------------------------------------------------
 
-    static block factory(const data_chunk& data, const settings& settings,
-        bool witness=false);
-    static block factory(std::istream& stream, const settings& settings,
-        bool witness=false);
-    static block factory(reader& source, const settings& settings,
-        bool witness=false);
+    static block factory(const data_chunk& data, bool witness=false);
+    static block factory(std::istream& stream, bool witness=false);
+    static block factory(reader& source, bool witness=false);
 
     bool from_data(const data_chunk& data, bool witness=false);
     bool from_data(std::istream& stream, bool witness=false);
@@ -121,7 +115,6 @@ public:
 
     size_t serialized_size(bool witness=false) const;
 
-    chain::header& header();
     const chain::header& header() const;
     void set_header(const chain::header& value);
     void set_header(chain::header&& value);
@@ -144,11 +137,13 @@ public:
     // Validation.
     //-------------------------------------------------------------------------
 
-    static uint64_t subsidy(size_t height, bool retarget=true);
+    static uint64_t subsidy(size_t height, uint64_t subsidy_interval,
+        uint64_t initial_block_subsidy_satoshi);
 
     uint64_t fees() const;
     uint64_t claim() const;
-    uint64_t reward(size_t height) const;
+    uint64_t reward(size_t height, uint64_t subsidy_interval,
+        uint64_t initial_block_subsidy_satoshi) const;
     hash_digest generate_merkle_root(bool witness=false) const;
     size_t signature_operations() const;
     size_t signature_operations(bool bip16, bool bip141) const;
@@ -159,7 +154,8 @@ public:
     bool is_extra_coinbases() const;
     bool is_final(size_t height, uint32_t block_time) const;
     bool is_distinct_transaction_set() const;
-    bool is_valid_coinbase_claim(size_t height) const;
+    bool is_valid_coinbase_claim(size_t height, uint64_t subsidy_interval,
+        uint64_t initial_block_subsidy_satoshi) const;
     bool is_valid_coinbase_script(size_t height) const;
     bool is_valid_witness_commitment() const;
     bool is_forward_reference() const;
@@ -167,11 +163,13 @@ public:
     bool is_valid_merkle_root() const;
     bool is_segregated() const;
 
-    code check(bool retarget) const;
-    code check_transactions() const;
-    code accept(bool transactions=true, bool header=true) const;
-    code accept(const chain_state& state, bool transactions=true,
+    code check(uint64_t max_money, uint32_t timestamp_limit_seconds,
+        uint32_t proof_of_work_limit, bool scrypt=false) const;
+    code check_transactions(uint64_t max_money) const;
+    code accept(const settings& settings, bool transactions=true,
         bool header=true) const;
+    code accept(const chain_state& state, const settings& settings,
+        bool transactions=true, bool header=true) const;
     code accept_transactions(const chain_state& state) const;
     code connect() const;
     code connect(const chain_state& state) const;

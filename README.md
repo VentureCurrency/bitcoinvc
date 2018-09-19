@@ -79,7 +79,7 @@ $ chmod +x install.sh
 ```
 Finally install BitcoinVC with default [build options](#build-notes-for-linux--macos):
 ```sh
-$ sudo ./install.sh
+$ ./install.sh --prefix=/home/me/myprefix --build-boost --disable-shared
 ```
 
 BitcoinVC is now installed in `/usr/local/`.
@@ -124,7 +124,7 @@ $ chmod +x install.sh
 ```
 Finally install BitcoinVC with default [build options](#build-notes-for-linux--macos):
 ```sh
-$ ./install.sh
+$ ./install.sh --prefix=/home/me/myprefix --build-boost --disable-shared
 ```
 
 BitcoinVC is now installed in `/usr/local/`.
@@ -155,7 +155,7 @@ $ chmod +x install.sh
 ```
 Finally install BitcoinVC with default [build options](#build-notes-for-linux--macos):
 ```sh
-$ ./install.sh
+$ ./install.sh --prefix=/home/me/myprefix --build-boost --disable-shared
 ```
 
 BitcoinVC is now installed in `/usr/local/`.
@@ -183,26 +183,26 @@ $ ./install.sh CFLAGS="-Og -g" --prefix=/home/me/myprefix
 
 Since the addition of [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) and later [BIP-38](https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki) and [Electrum](https://electrum.org) mnemnoic support, BitcoinVC conditionally incorporates [ICU](http://site.icu-project.org). To use passphrase normalization for these features BitcoinVC must be compiled with the `--with-icu` option. Currently [bitcoinvc-explorer](https://github.com/VentureCurrency/bitcoinvc-explorer) is the only other library that accesses this feature, so if you do not intend to use passphrase normalization this dependency can be avoided.
 ```sh
-$ ./install.sh --with-icu
+$ ./install.sh --with-icu --build-icu --build-boost --disable-shared
 ```
 
 #### Compiling with QR Code Support
 
 Since the addition of [qrcode](https://github.com/VentureCurrency/bitcoinvc/blob/master/src/wallet/qrcode.cpp) support, BitcoinVC conditionally incorporates `qrencode`. This requires compiling with the `--with-qrencode` option. Currently [bitcoinvc-explorer](https://github.com/VentureCurrency/bitcoinvc-explorer) is the only other library that accesses this feature, so if you do not intend to use qrcode this dependency can be avoided.
 ```sh
-$ ./install.sh --with-qrencode
+$ ./install.sh --with-qrencode --build-qrencode --build-boost --disable-shared
 ```
 
 Since the addition of [png](https://github.com/VentureCurrency/bitcoinvc/blob/master/src/utility/png.cpp) support, BitcoinVC conditionally incorporates `libpng` (which in turn requires `zlib`). This requires compiling with the `--with-png` option. Currently [bitcoinvc-explorer](https://github.com/VentureCurrency/bitcoinvc-explorer) is the only other library that accesses this feature, so if you do not intend to use png this dependency can be avoided.
 ```sh
-$ ./install.sh --with-png
+$ ./install.sh --with-png --build-png --build-boost --disable-shared
 ```
 
 #### Building ICU, ZLib, PNG, QREncode and/or Boost
 
 The installer can download and install any or all of these dependencies. ICU is a large package that is not typically preinstalled at a sufficient level. Using these builds ensures compiler and configuration compatibility across all of the build components. It is recommended to use a prefix directory when building these components.
 ```sh
-$ ./install.sh --with-icu --with-png --with-qrencode --build-icu --build-zlib --build-png --build-qrencode --build-boost --prefix=/home/me/myprefix
+$ ./install.sh --prefix=/home/me/myprefix --with-icu --with-png --with-qrencode --build-icu --build-zlib --build-png --build-qrencode --build-boost --disable-shared
 ```
 
 ### Windows

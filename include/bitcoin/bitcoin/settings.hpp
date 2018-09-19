@@ -21,7 +21,7 @@
 #ifndef BITCOINVC_SETTINGS_HPP
 #define BITCOINVC_SETTINGS_HPP
 
-#include <bitcoin/bitcoin/chain/block.hpp>
+#include <bitcoin/bitcoin/config/block.hpp>
 #include <bitcoin/bitcoin/config/settings.hpp>
 #include <bitcoin/bitcoin/define.hpp>
 
@@ -38,22 +38,29 @@ public:
     settings();
     settings(config::settings context);
 
-    uint32_t retargeting_factor;
-    uint32_t target_spacing_seconds;
-    uint32_t easy_spacing_seconds;
-    uint32_t timestamp_future_seconds;
-    uint32_t target_timespan_seconds;
-    uint32_t retarget_proof_of_work_limit;
-    uint32_t no_retarget_proof_of_work_limit;
+    void retargeting_factor(uint32_t value);
+    uint32_t retargeting_interval_seconds() const;
+    void retargeting_interval_seconds(uint32_t value);
+    uint32_t block_spacing_seconds() const;
+    void block_spacing_seconds(uint32_t value);
+    uint32_t minimum_timespan() const;
+    uint32_t maximum_timespan() const;
+    size_t retargeting_interval() const;
 
-    // The upper and lower bounds for the retargeting timespan.
-    uint32_t min_timespan;
-    uint32_t max_timespan;
+    // Currency unit helper methods (uint64_t).
+    //--------------------------------------------------------------------------
 
-    // The target number of blocks for 2 weeks of work (2016 blocks).
-    size_t retargeting_interval;
+    uint64_t bitcoin_to_satoshi(uint64_t value=1) const;
+    void initial_block_subsidy_bitcoin(uint64_t value);
+    uint64_t initial_block_subsidy_bitcoin() const;
+    void subsidy_interval(uint64_t value);
+    uint64_t subsidy_interval() const;
+    uint64_t max_money() const;
 
-    chain::block genesis_block;
+    uint32_t timestamp_limit_seconds;
+    uint32_t proof_of_work_limit;
+
+    config::block genesis_block;
 
     // Fork settings.
     //--------------------------------------------------------------------------
@@ -68,18 +75,48 @@ public:
     uint32_t bip9_version_base;
 
     // Activation parameters (bip34-style activations).
-    size_t net_active;
-    size_t net_enforce;
-    size_t net_sample;
+    size_t activation_threshold;
+    size_t enforcement_threshold;
+    size_t activation_sample;
 
     // Frozen activation heights (frozen_activations).
     size_t bip65_freeze;
     size_t bip66_freeze;
+    size_t bip34_freeze;
 
     // Block 514 is the first testnet block after date-based activation.
     // Block 173805 is the first mainnet block after date-based activation.
     // The first mainnet activation window hardwired in satoshi 0.6.0rc1 failed.
     uint32_t bip16_activation_time;
+
+    // bip90 stops checking unspent duplicates above this bip34 activation.
+    config::checkpoint bip34_active_checkpoint;
+
+    // This cannot be reactivated in a future branch due to window expiration.
+    config::checkpoint bip9_bit0_active_checkpoint;
+
+    // This cannot be reactivated in a future branch due to window expiration.
+    config::checkpoint bip9_bit1_active_checkpoint;
+
+private:
+    uint32_t retargeting_factor_;
+    uint32_t block_spacing_seconds_;
+    uint32_t retargeting_interval_seconds_;
+
+    // The upper and lower bounds for the retargeting timespan.
+    uint32_t minimum_timespan_;
+    uint32_t maximum_timespan_;
+
+    // The target number of blocks for 2 weeks of work (2016 blocks).
+    size_t retargeting_interval_;
+
+    // Currency unit settings (uint64_t).
+    //--------------------------------------------------------------------------
+
+    uint64_t initial_block_subsidy_bitcoin_;
+    uint64_t recursive_money_;
+    uint64_t subsidy_interval_;
+    uint64_t max_money_;
 };
 
 } // namespace bitcoinvc
