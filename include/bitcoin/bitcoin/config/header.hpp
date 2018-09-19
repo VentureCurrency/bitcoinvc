@@ -25,7 +25,6 @@
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/chain/header.hpp>
-#include <bitcoin/bitcoin/settings.hpp>
 
 namespace bitcoinvc {
 namespace config {

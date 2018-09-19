@@ -25,7 +25,6 @@
 #include <string>
 #include <bitcoin/bitcoin/define.hpp>
 #include <bitcoin/bitcoin/chain/block.hpp>
-#include <bitcoin/bitcoin/settings.hpp>
 
 namespace bitcoinvc {
 namespace config {
@@ -60,6 +59,18 @@ public:
      * @param[in]  other  The object to copy into self on construct.
      */
     block(const block& other);
+
+    /**
+     * Copy assignment operator.
+     * @param[in]  other  The object to copy into self on assignment.
+     */
+    block& operator=(const block& other);
+
+    /**
+     * Move assignment operator.
+     * @param[in]  other  The object to move into self on assignment.
+     */
+    block& operator=(chain::block&& other);
 
     /**
      * Override the equality operator.

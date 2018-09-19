@@ -64,8 +64,8 @@ using namespace boost::adaptors;
 // Constructors.
 //-----------------------------------------------------------------------------
 
-block::block(const bc::settings& settings)
-  : header_(settings),
+block::block()
+  : header_(),
     metadata{}
 {
 }
@@ -142,27 +142,25 @@ bool block::operator!=(const block& other) const
 //-----------------------------------------------------------------------------
 
 // static
-block block::factory(const data_chunk& data, const bc::settings& settings,
-    bool witness)
+block block::factory(const data_chunk& data, bool witness)
 {
-    block instance(settings);
+    block instance;
     instance.from_data(data, witness);
     return instance;
 }
 
 // static
-block block::factory(std::istream& stream, const bc::settings& settings,
-    bool witness)
+block block::factory(std::istream& stream, bool witness)
 {
-    block instance(settings);
+    block instance;
     instance.from_data(stream, witness);
     return instance;
 }
 
 // static
-block block::factory(reader& source, const bc::settings& settings, bool witness)
+block block::factory(reader& source, bool witness)
 {
-    block instance(settings);
+    block instance;
     instance.from_data(source, witness);
     return instance;
 }
@@ -250,7 +248,7 @@ void block::to_data(std::ostream& stream, bool witness) const
 void block::to_data(writer& sink, bool witness) const
 {
     header_.to_data(sink, true);
-    sink.write_size_little_endian(transactions_.size());
+    sink.write_variable_little_endian(transactions_.size());
     const auto to = [&sink, witness](const transaction& tx)
     {
         tx.to_data(sink, true, witness);
@@ -325,11 +323,6 @@ size_t block::serialized_size(bool witness) const
     return value;
 }
 
-chain::header& block::header()
-{
-    return header_;
-}
-
 const chain::header& block::header() const
 {
     return header_;
@@ -340,7 +333,6 @@ void block::set_header(const chain::header& value)
     header_ = value;
 }
 
-// TODO: see set_header comments.
 void block::set_header(chain::header&& value)
 {
     header_ = std::move(value);
@@ -446,7 +438,8 @@ void block::strip_witness()
 //-----------------------------------------------------------------------------
 
 // static
-uint64_t block::subsidy(size_t height, bool retarget)
+uint64_t block::subsidy(size_t height, uint64_t subsidy_interval,
+    uint64_t initial_block_subsidy_satoshi)
 {
 //    static const auto overflow = sizeof(uint64_t) * byte_bits;
     auto subsidy = initial_block_subsidy_satoshi();
@@ -694,16 +687,19 @@ uint64_t block::claim() const
 }
 
 // Overflow returns max_uint64.
-uint64_t block::reward(size_t height) const
+uint64_t block::reward(size_t height, uint64_t subsidy_interval,
+    uint64_t initial_block_subsidy_satoshi) const
 {
     ////static_assert(max_money() < max_uint64, "overflow sentinel invalid");
 //    return ceiling_add(fees(), subsidy(height));
     return (uint64_t)0;
 }
 
-bool block::is_valid_coinbase_claim(size_t height) const
+bool block::is_valid_coinbase_claim(size_t height, uint64_t subsidy_interval,
+    uint64_t initial_block_subsidy_satoshi) const
 {
-    return claim() <= reward(height);
+    return claim() <= reward(height, subsidy_interval,
+        initial_block_subsidy_satoshi);
 }
 
 bool block::is_valid_coinbase_script(size_t height) const
@@ -767,12 +763,12 @@ bool block::is_segregated() const
     return value;
 }
 
-code block::check_transactions() const
+code block::check_transactions(uint64_t max_money) const
 {
     code ec;
 
     for (const auto& tx: transactions_)
-        if ((ec = tx.check(false)))
+        if ((ec = tx.check(max_money, false)))
             return ec;
 
     return error::success;
@@ -804,13 +800,15 @@ code block::connect_transactions(const chain_state& state) const
 //-----------------------------------------------------------------------------
 
 // These checks are self-contained; blockchain (and so version) independent.
-code block::check(bool retarget) const
+code block::check(uint64_t max_money, uint32_t timestamp_limit_seconds,
+    uint32_t proof_of_work_limit, bool scrypt) const
 {
     metadata.start_check = asio::steady_clock::now();
 
     code ec;
 
-    if ((ec = header_.check(retarget)))
+    if ((ec = header_.check(timestamp_limit_seconds, proof_of_work_limit,
+        scrypt)))
         return ec;
 
     // TODO: relates to total of tx.size(false) (pool cache).
@@ -850,19 +848,20 @@ code block::check(bool retarget) const
     ////    return error::block_legacy_sigop_limit;
 
     else
-        return check_transactions();
+        return check_transactions(max_money);
 }
 
-code block::accept(bool transactions, bool header) const
+code block::accept(const bc::settings& settings, bool transactions, bool header)
+    const
 {
     const auto state = header_.metadata.state;
-    return state ? accept(*state, transactions, header) :
+    return state ? accept(*state, settings, transactions, header) :
         error::operation_failed;
 }
 
 // These checks assume that prevout caching is completed on all tx.inputs.
-code block::accept(const chain_state& state, bool transactions,
-    bool header) const
+code block::accept(const chain_state& state, const bc::settings& settings,
+    bool transactions, bool header) const
 {
     metadata.start_accept = asio::steady_clock::now();
 
@@ -890,7 +889,9 @@ code block::accept(const chain_state& state, bool transactions,
         return error::coinbase_height_mismatch;
 
     // TODO: relates height to total of tx.fee (pool cach).
-    else if (!is_valid_coinbase_claim(state.height()))
+    else if (!is_valid_coinbase_claim(state.height(),
+            settings.subsidy_interval(), settings.bitcoin_to_satoshi(
+                settings.initial_block_subsidy_bitcoin())))
         return error::coinbase_value_limit;
 
     // TODO: relates median time past to tx.locktime (pool cache min tx.time).
