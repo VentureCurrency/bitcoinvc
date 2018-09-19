@@ -404,23 +404,23 @@ BOOST_AUTO_TEST_CASE(header__is_valid_timestamp__timestamp_greater_than_2_hours_
     BOOST_REQUIRE(!instance.is_valid_timestamp());
 }
 
-BOOST_AUTO_TEST_CASE(header__is_valid_proof_of_work__bits_exceeds_maximum__returns_false)
+BOOST_AUTO_TEST_CASE(header__is_valid_expected_utility__bits_exceeds_maximum__returns_false)
 {
     const settings settings{};
     chain::header instance(settings);
     instance.set_bits(settings.retarget_proof_of_work_limit + 1);
-    BOOST_REQUIRE(!instance.is_valid_proof_of_work(true));
+    BOOST_REQUIRE(!instance.is_valid_expected_utility(true));
 }
 
-BOOST_AUTO_TEST_CASE(header__is_valid_proof_of_work__no_retarget_bits_exceeds_maximum__returns_false)
+BOOST_AUTO_TEST_CASE(header__is_valid_expected_utility__no_retarget_bits_exceeds_maximum__returns_false)
 {
     const settings settings{};
     chain::header instance(settings);
     instance.set_bits(settings.no_retarget_proof_of_work_limit + 1);
-    BOOST_REQUIRE(!instance.is_valid_proof_of_work(false));
+    BOOST_REQUIRE(!instance.is_valid_expected_utility(false));
 }
 
-BOOST_AUTO_TEST_CASE(header__is_valid_proof_of_work__hash_greater_bits__returns_false)
+BOOST_AUTO_TEST_CASE(header__is_valid_expected_utility__hash_greater_bits__returns_false)
 {
     const chain::header instance(
         11234u,
@@ -431,10 +431,10 @@ BOOST_AUTO_TEST_CASE(header__is_valid_proof_of_work__hash_greater_bits__returns_
         34564u,
         settings());
 
-    BOOST_REQUIRE(!instance.is_valid_proof_of_work(true));
+    BOOST_REQUIRE(!instance.is_valid_expected_utility(true));
 }
 
-BOOST_AUTO_TEST_CASE(header__is_valid_proof_of_work__hash_less_than_bits__returns_true)
+BOOST_AUTO_TEST_CASE(header__is_valid_expected_utility__hash_less_than_bits__returns_true)
 {
     const chain::header instance(
         4u,
@@ -445,7 +445,7 @@ BOOST_AUTO_TEST_CASE(header__is_valid_proof_of_work__hash_less_than_bits__return
         2842832236u,
         settings());
 
-    BOOST_REQUIRE(instance.is_valid_proof_of_work(true));
+    BOOST_REQUIRE(instance.is_valid_expected_utility(true));
 }
 
 BOOST_AUTO_TEST_CASE(header__proof1__genesis_mainnet__expected)

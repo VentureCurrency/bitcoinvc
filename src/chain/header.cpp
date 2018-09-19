@@ -458,8 +458,90 @@ bool header::is_valid_timestamp() const
     return time <= future;
 }
 
-bool header::is_valid_proof_of_work(bool retarget) const
+bool header::is_valid_expected_utility(bool retarget) const
 {
+    // DMH hash only maybe? Diffie-Merkle-Hellman? Decentralized-Merkle-Hash? Decentralized-Merkle-Hellman?
+    // no PoW race, no Ponzi investment incentives
+    
+    // S
+    // O
+    // Consensus is determined according to the von Neumann Utility Theorem based on four axioms of rationality
+
+    // README (FOR DEVELOPERS) double-spend prevention by expected utility; provable double-spender slashing
+
+    // All nodes prefer blocks which contain proof of double-spending; more proofs = higher preference by nodes
+    // To prove double-spending, a miner inserts into a new block any two valid txs that spend the same UTXOs
+    // Independence of irrelevant alternatives: next, nodes prefer blocks with the highest aggregate fees
+    // Continuity and Completeness: preference for completeness within a small deviation of probable outcomes
+
+    // Merkle hash lowest value is used for finality; DoS conditions will be possible but cost attacker in fees
+    // Expected Utility Consensus a cooperative mining algorithm with ethical PoW used for finality & anti-spam
+    // Transitivity:
+    // Header hash provides spam-prevention PoW with difficulty retargeting when too many blocks flood network
+    // Optional: consensus wallet without private key, derived from reduced-address-spaceb weak elliptic curve?
+    // Diffie-Hellman (who invented it? look it up, use his name and reference Wikipedia page)
+
+    // Each block is generated
+    // Miners may
+    // After
+    // C
+    // S
+
+    // hash code of txs is contained in merkle_root field https://en.bitcoin.it/wiki/Protocol_documentation#Block_Headers
+    
+    // Secure "Decentralized Diffie-Hellman" Key Agreement
+    // Order of transactions in block does not matter, order in which header fields are hashed does not matter
+
+    // block hash keyed using block timestamp+prior block hash+ as the key (genesis block: timestamp+null hash)
+
+    // when a wallet attempts to double-spend, honesty and consensus are preferred over a condition that breaks trust or rationality, having decided on a preference for A over B and C over A we never prefer B over C
+    // a wallet that attempts to double-spend will have the double-signed UTXOs permanently revoked/burned (when the double-spending is present in the mempool) or the new tx is rejected (UTXO already spent)
+    // all nodes implement the UTXO burn policy by including double-spend transactions in the same new block, sending the UTXOs to the zero address instead of either address requested by one of the signed txs; to prevent spam/DDOS attacks from infinite double-spending just to fill up blocks, any two double-spend txs can be included in a block, nodes can drop all other double spend txs, and only the UTXOs are included in the DH hash of the block
+    // users may increase the mining fee they offer so their tx may enter a block during period of high mempool congestion or when they decide to expedite (preference for C over A), but they cannot double-spend (as a preference for B over A) nor can users change address their UTXOs are sent to (never prefer B over C)
+    // zero-fee transactions can be included only in even-numbered blocks (subject to space availability i.e. mempool congestion may leave no space available in blocks for an extended period of time)
+    // to prevent every even block filling up instantly with zero-fee txs at most 50% of block can be no-fee tx
+
+    // nodes have a preference for completeness, and require full blocks before a new block height is achieved
+    // miners propagate blocks as soon as new txs become available and the block with the greatest PoW persists
+    // no copies of discarded blocks are retained by normal nodes, future alternative chains are not possible
+    // nodes will only reorganize when a candidate block is first complete with respect to the best block
+    // nodes will reject any new block that is not better than its existing best block, containing all known transactions plus previously-unknown transactions, plus optional PoW (there is no incentive to apply PoW, but if a miner does it causes no harm because they can't produce bad blocks or of lower quality)
+    
+    // blockchain maturity checkpoints: coinbase transaction input becomes checkpoint hash
+    //
+    // a spam attack on the mempool with zero-fee transactions:
+    // a DoS attack on the block finality with PoW:
+    
+    // intrinsic header data available for Bitcoin Venture Currency consensus rules:
+
+    //     version_ = source.read_4_bytes_little_endian();
+    // version can include epoch, extra data; major and minor version numbers; consensus- and decoding-helpers
+    // uint32_t version, (with fixed blocktimes, version/expected timestamp can be used for guiding validation)
+
+    //    previous_block_hash_ = source.read_hash();
+    // hash_digest&& previous_block_hash, (the difference from actual hash could be signal; verify w/timestamp)
+
+    //    merkle_ = source.read_hash();
+    // hash_digest&& merkle,
+    // This may not match the computed value, validation compares them. (expected differences could be signal)
+    // const hash_digest& merkle() const; <see header.hpp>
+
+    //    timestamp_ = source.read_4_bytes_little_endian();
+    // uint32_t timestamp, (with fixed block times extra signal can be added; could use decode helper: version)
+
+    //    bits_ = source.read_4_bytes_little_endian();
+    // uint32_t bits,
+
+    //    nonce_ = source.read_4_bytes_little_endian();
+    // uint32_t nonce, (without PoW the nonce can be anything, arbitrary data signal)
+
+    // const settings& settings
+
+    // THIS IS FOR LIBRARY USE ONLY, DO NOT CREATE A DEPENDENCY ON IT.
+    // mutable validation metadata;
+    
+    // DH hash with coinbase, DH hash without coinbase, will there be a self-verifying hash code also? (PoW)??
+
     const auto bits = compact(bits_);
     const auto work_limit = retarget ? settings_.retarget_proof_of_work_limit :
         settings_.no_retarget_proof_of_work_limit;
@@ -514,8 +596,8 @@ uint256_t header::proof() const
 
 code header::check(bool retarget) const
 {
-    if (!is_valid_proof_of_work(retarget))
-        return error::invalid_proof_of_work;
+    if (!is_valid_expected_utility(retarget))
+        return error::invalid_expected_utility;
 
     else if (!is_valid_timestamp())
         return error::futuristic_timestamp;

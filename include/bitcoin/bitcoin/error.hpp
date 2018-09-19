@@ -91,7 +91,7 @@ enum error_code_t
     dusty_transaction = 76,
 
     // check header
-    invalid_proof_of_work = 26,
+    invalid_expected_utility = 26,
     futuristic_timestamp = 27,
 
     // accept header

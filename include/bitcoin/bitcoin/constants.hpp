@@ -232,7 +232,7 @@ BC_CONSTFUNC uint64_t bitcoin_to_satoshi(uint64_t bitcoin_uints=1)
     return bitcoin_uints * satoshi_per_bitcoin;
 }
 
-BC_CONSTEXPR uint64_t initial_block_subsidy_bitcoin = 50;
+BC_CONSTEXPR uint64_t initial_block_subsidy_bitcoin = 0;
 BC_CONSTFUNC uint64_t initial_block_subsidy_satoshi()
 {
     return bitcoin_to_satoshi(initial_block_subsidy_bitcoin);

@@ -94,7 +94,7 @@ std::string error_category_impl::message(int ev) const BC_NOEXCEPT
         { error::dusty_transaction, "output value too low" },
 
         // check header
-        { error::invalid_proof_of_work, "proof of work invalid" },
+        { error::invalid_expected_utility, "proof of work invalid" },
         { error::futuristic_timestamp, "timestamp too far in the future" },
 
         // accept header

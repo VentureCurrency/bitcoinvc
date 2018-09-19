@@ -168,7 +168,7 @@ public:
     static uint256_t proof(uint32_t bits);
 
     bool is_valid_timestamp() const;
-    bool is_valid_proof_of_work(bool retarget) const;
+    bool is_valid_expected_utility(bool retarget) const;
 
     code check(bool retarget) const;
     code accept() const;

@@ -448,10 +448,10 @@ void block::strip_witness()
 // static
 uint64_t block::subsidy(size_t height, bool retarget)
 {
-    static const auto overflow = sizeof(uint64_t) * byte_bits;
+//    static const auto overflow = sizeof(uint64_t) * byte_bits;
     auto subsidy = initial_block_subsidy_satoshi();
-    const auto halvings = height / subsidy_interval(retarget);
-    subsidy >>= (halvings >= overflow ? 0 : halvings);
+//    const auto halvings = height / subsidy_interval(retarget);
+//    subsidy >>= (halvings >= overflow ? 0 : halvings);
     return subsidy;
 }
 
@@ -697,7 +697,8 @@ uint64_t block::claim() const
 uint64_t block::reward(size_t height) const
 {
     ////static_assert(max_money() < max_uint64, "overflow sentinel invalid");
-    return ceiling_add(fees(), subsidy(height));
+//    return ceiling_add(fees(), subsidy(height));
+    return (uint64_t)0;
 }
 
 bool block::is_valid_coinbase_claim(size_t height) const

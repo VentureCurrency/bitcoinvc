@@ -31,6 +31,7 @@
 #include <bitcoin/bitcoin/error.hpp>
 #include <bitcoin/bitcoin/utility/assert.hpp>
 #include <bitcoin/bitcoin/utility/thread.hpp>
+#include <bitcoin/bitcoin/log/source.hpp>
 
 namespace bitcoinvc {
 
